@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
@@ -9,25 +9,86 @@
       --bg: #f5f5f7;
       --surface: #ffffff;
       --surface-subtle: #fbfbfd;
+      --surface-elevated: #ffffff;
       --text-primary: #1d1d1f;
       --text-secondary: #6e6e73;
       --text-tertiary: #86868b;
       --accent: #0071e3;
-      --accent-soft: rgba(0, 113, 227, 0.09);
+      --accent-soft: rgba(0, 113, 227, 0.1);
       --sister: #d93865;
-      --sister-soft: rgba(217, 56, 101, 0.1);
+      --sister-soft: rgba(217, 56, 101, 0.11);
       --brother: #0066cc;
-      --brother-soft: rgba(0, 102, 204, 0.1);
+      --brother-soft: rgba(0, 102, 204, 0.11);
       --olive: #6c7a1e;
-      --olive-soft: rgba(108, 122, 30, 0.12);
+      --olive-soft: rgba(108, 122, 30, 0.13);
       --red-team: #c92a2a;
-      --red-team-soft: rgba(201, 42, 42, 0.1);
+      --red-team-soft: rgba(201, 42, 42, 0.11);
       --border: rgba(0, 0, 0, 0.08);
+      --header-bg: rgba(245, 245, 247, 0.84);
+      --seg-bg: rgba(118, 118, 128, 0.12);
       --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.08);
-      --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.22);
+      --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.24);
       --radius-lg: 22px;
       --radius-md: 16px;
+
+      /* SVG Theme Tokens (Light) */
+      --svg-bg: #ffffff;
+      --svg-panel-pink: #fff9fb;
+      --svg-panel-pink-border: #ffdeeb;
+      --svg-panel-gray: #f8f9fa;
+      --svg-panel-gray-border: #dee2e6;
+      --svg-room-bg: #f1f3f5;
+      --svg-room-border: #868e96;
+      --svg-pillar: #adb5bd;
+      --svg-chair-fill: #ffffff;
+      --svg-chair-stroke: #cbd2d9;
+      --svg-text: #1d1d1f;
+      --svg-subtext: #495057;
+      --svg-arrow: #1d1d1f;
+      --svg-label-bg: rgba(255, 255, 255, 0.94);
+    }
+
+    [data-theme="dark"] {
+      --bg: #000000;
+      --surface: #1c1c1e;
+      --surface-subtle: #2c2c2e;
+      --surface-elevated: #2c2c2e;
+      --text-primary: #f5f5f7;
+      --text-secondary: #a1a1a6;
+      --text-tertiary: #8e8e93;
+      --accent: #0a84ff;
+      --accent-soft: rgba(10, 132, 255, 0.18);
+      --sister: #ff375f;
+      --sister-soft: rgba(255, 55, 95, 0.18);
+      --brother: #409cff;
+      --brother-soft: rgba(64, 156, 255, 0.18);
+      --olive: #9fb336;
+      --olive-soft: rgba(159, 179, 54, 0.2);
+      --red-team: #ff453a;
+      --red-team-soft: rgba(255, 69, 58, 0.18);
+      --border: rgba(255, 255, 255, 0.12);
+      --header-bg: rgba(28, 28, 30, 0.84);
+      --seg-bg: rgba(118, 118, 128, 0.26);
+      --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.5);
+      --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.7);
+
+      /* SVG Theme Tokens (Dark) */
+      --svg-bg: #1c1c1e;
+      --svg-panel-pink: #251b20;
+      --svg-panel-pink-border: #4a2836;
+      --svg-panel-gray: #242426;
+      --svg-panel-gray-border: #38383a;
+      --svg-room-bg: #2c2c2e;
+      --svg-room-border: #636366;
+      --svg-pillar: #636366;
+      --svg-chair-fill: #2c2c2e;
+      --svg-chair-stroke: #48484a;
+      --svg-text: #f5f5f7;
+      --svg-subtext: #aeaeb2;
+      --svg-arrow: #f5f5f7;
+      --svg-label-bg: rgba(28, 28, 30, 0.92);
     }
 
     * {
@@ -42,6 +103,7 @@
       color: var(--text-primary);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     /* Sticky Apple-style Glass Header */
@@ -49,24 +111,42 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(245, 245, 247, 0.84);
+      background: var(--header-bg);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid var(--border);
+      transition: background-color 0.25s ease;
     }
 
     .header-inner {
       max-width: 1020px;
       margin: 0 auto;
-      padding: 16px 20px 14px;
+      padding: 14px 20px 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 12px;
+      position: relative;
+    }
+
+    .top-bar-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .title-row {
-      text-align: center;
+      text-align: left;
+    }
+
+    @media (min-width: 600px) {
+      .title-row {
+        text-align: center;
+        flex: 1;
+        padding-left: 88px;
+      }
     }
 
     .eyebrow {
@@ -75,21 +155,43 @@
       letter-spacing: 0.08em;
       color: var(--accent);
       text-transform: uppercase;
-      margin-bottom: 2px;
+      margin-bottom: 1px;
     }
 
     h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--text-primary);
     }
 
-    /* Segmented Control (2 Main Tabs) */
+    /* Theme Toggle Button (Light / Dark) */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-primary);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, background-color 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.96);
+    }
+
+    /* Segmented Control (Tab 1: Reception, Tab 2: Communion) */
     .segmented-control {
       display: inline-flex;
-      background: rgba(118, 118, 128, 0.12);
+      background: var(--seg-bg);
       padding: 3px;
       border-radius: 999px;
       width: 100%;
@@ -110,9 +212,9 @@
     }
 
     .tab-btn.active {
-      background: var(--surface);
+      background: var(--surface-elevated);
       color: var(--text-primary);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
     }
 
     main {
@@ -161,7 +263,7 @@
       color: var(--text-primary);
       box-shadow: var(--shadow-sm);
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background-color 0.25s;
     }
 
     .search-box input:focus {
@@ -228,7 +330,7 @@
 
     /* Section Header */
     .section-header {
-      margin: 26px 0 12px;
+      margin: 24px 0 12px;
       display: flex;
       align-items: baseline;
       justify-content: space-between;
@@ -263,7 +365,7 @@
       box-shadow: var(--shadow-sm);
       cursor: pointer;
       text-align: left;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background-color 0.25s;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -273,7 +375,7 @@
     .worker-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
-      border-color: rgba(0, 113, 227, 0.35);
+      border-color: var(--accent);
     }
 
     .worker-card:active {
@@ -326,7 +428,7 @@
     .diagram-card {
       background: var(--surface);
       border-radius: var(--radius-lg);
-      padding: 20px;
+      padding: 18px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow-sm);
       margin-bottom: 18px;
@@ -338,7 +440,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .diagram-title {
@@ -355,10 +457,10 @@
 
     .svg-frame {
       width: 100%;
-      background: #fbfbfd;
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 12px;
+      padding: 10px;
       overflow-x: auto;
     }
 
@@ -367,6 +469,23 @@
       height: auto;
       display: block;
       margin: 0 auto;
+    }
+
+    /* Interactive Clickable Markers inside SVG Floor Plans */
+    .map-hotlink {
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), filter 0.18s ease;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .map-hotlink:hover {
+      transform: scale(1.06);
+      filter: drop-shadow(0 3px 8px rgba(0, 113, 227, 0.35));
+    }
+
+    .map-hotlink:active {
+      transform: scale(0.96);
     }
 
     /* Interactive Highlight Bar inside Communion Map */
@@ -391,7 +510,7 @@
 
     .map-chip.active, .map-chip:hover {
       background: var(--text-primary);
-      color: #fff;
+      color: var(--bg);
       border-color: var(--text-primary);
     }
 
@@ -417,7 +536,7 @@
 
     .filter-pill.active {
       background: var(--text-primary);
-      color: #fff;
+      color: var(--bg);
       border-color: var(--text-primary);
     }
 
@@ -437,7 +556,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.44);
+      background: rgba(0, 0, 0, 0.52);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 1000;
@@ -463,12 +582,13 @@
     .modal-card {
       background: var(--surface);
       width: 100%;
-      max-width: 560px;
+      max-width: 580px;
       max-height: 90vh;
       overflow-y: auto;
       border-radius: 26px 26px 0 0;
       padding: 12px 22px 28px;
       box-shadow: var(--shadow-modal);
+      border: 1px solid var(--border);
       transform: translateY(24px);
       transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
@@ -488,7 +608,8 @@
     .drag-handle {
       width: 38px;
       height: 5px;
-      background: #d2d2d7;
+      background: var(--text-tertiary);
+      opacity: 0.4;
       border-radius: 999px;
       margin: 0 auto 14px;
     }
@@ -510,7 +631,7 @@
       height: 32px;
       border-radius: 999px;
       border: none;
-      background: rgba(118, 118, 128, 0.14);
+      background: var(--seg-bg);
       color: var(--text-secondary);
       font-size: 18px;
       font-weight: 600;
@@ -538,6 +659,7 @@
       border-radius: 16px;
       padding: 14px 16px;
       margin-bottom: 12px;
+      border: 1px solid var(--border);
     }
 
     .detail-label {
@@ -567,11 +689,37 @@
       line-height: 1.5;
     }
 
+    /* Multi-worker picker inside Modal (e.g., when clicking 男6、7、8 group marker) */
+    .multi-worker-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .multi-worker-btn {
+      flex: 1;
+      padding: 9px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .multi-worker-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+    }
+
     .modal-svg-box {
       margin-top: 12px;
       border-radius: 16px;
       border: 1px solid var(--border);
-      background: #fbfbfd;
+      background: var(--surface-subtle);
       overflow: hidden;
     }
 
@@ -617,16 +765,24 @@
 
   <header>
     <div class="header-inner">
-      <div class="title-row">
-        <div class="eyebrow">Baptism Service Guide</div>
-        <h1>受洗禮拜服事指南</h1>
-      </div>
-      <div class="segmented-control" role="tablist" aria-label="服事分頁切換">
-        <button class="tab-btn active" id="tab-communion" role="tab" aria-selected="true" onclick="switchTab('communion')">
-          聖餐服事同工
+      <div class="top-bar-row">
+        <div class="title-row">
+          <div class="eyebrow">Baptism Service Guide</div>
+          <h1>受洗禮拜服事指南</h1>
+        </div>
+        <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="切換深色或淺色模式">
+          <span id="themeIcon">🌙</span>
+          <span id="themeText">深色模式</span>
         </button>
-        <button class="tab-btn" id="tab-reception" role="tab" aria-selected="false" onclick="switchTab('reception')">
+      </div>
+
+      <!-- TAB 1: 受洗招待服事同工 | TAB 2: 聖餐服事同工 -->
+      <div class="segmented-control" role="tablist" aria-label="服事分頁切換">
+        <button class="tab-btn active" id="tab-reception" role="tab" aria-selected="true" onclick="switchTab('reception')">
           受洗招待服事同工
+        </button>
+        <button class="tab-btn" id="tab-communion" role="tab" aria-selected="false" onclick="switchTab('communion')">
+          聖餐服事同工
         </button>
       </div>
     </div>
@@ -637,38 +793,99 @@
     <div class="quick-bar">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="search" id="searchInput" placeholder="輸入姓名或位置快速尋找（例如：鄭裕霖、位置 1、招待A）" oninput="handleSearch(this.value)" />
+        <input type="search" id="searchInput" placeholder="輸入姓名或位置快速尋找（例如：招待A、位置 1、楊艾倫）" oninput="handleSearch(this.value)" />
       </div>
-      <div class="hint-badge">👆 點擊個人卡片跳出專屬服事與動線</div>
+      <div class="hint-badge">👆 點擊場地圖上的站位標註或下方卡片，直接開啟服事詳情</div>
     </div>
 
-    <!-- ==================== TAB 1: 聖餐服事同工 ==================== -->
-    <section id="panel-communion" class="tab-panel active" role="tabpanel">
+    <!-- ==================== PAGE 1 (DEFAULT): 受洗招待服事同工 ==================== -->
+    <section id="panel-reception" class="tab-panel active" role="tabpanel">
+      <div class="callout-card">
+        <div class="callout-icon">🤝</div>
+        <div class="callout-text">
+          <strong>招待 14:00 就定位（週六 9:30 定位）</strong>
+          <span>場地圖置頂呈現！可直接點擊圖上的「女1～女4」、「男1～男8」站位標註，或點擊下方同工卡片查看詳情。</span>
+        </div>
+      </div>
+
+      <!-- 1. FLOOR PLANS FIRST (置頂於同工名單之前) -->
+      <div class="section-header" style="margin-top: 6px;">
+        <h2 class="section-title">受洗招待場地與站位動線圖</h2>
+        <span class="section-sub">🔗 點擊圖中任意「女1～女4 / 男1～男8」標註可直接開啟該同工詳情卡</span>
+      </div>
+
+      <div class="two-col-diagrams">
+        <div class="diagram-card">
+          <div class="diagram-top">
+            <div>
+              <h3 class="diagram-title">姊妹招待站位圖（女1 ～ 女4）</h3>
+              <p class="diagram-desc">點擊圖中「女1～女4」標註，立即查看對應同工與服事內容</p>
+            </div>
+          </div>
+          <div class="svg-frame" id="main-sister-svg-container"></div>
+        </div>
+
+        <div class="diagram-card">
+          <div class="diagram-top">
+            <div>
+              <h3 class="diagram-title">弟兄招待站位圖（男1 ～ 男8）</h3>
+              <p class="diagram-desc">點擊圖中「男1～男8」標註，立即查看對應同工與拖地/協助內容</p>
+            </div>
+          </div>
+          <div class="svg-frame" id="main-brother-svg-container"></div>
+        </div>
+      </div>
+
+      <!-- 2. RECEPTION WORKERS BELOW (同工名單放場地圖下面) -->
+      <div class="section-header">
+        <h2 class="section-title">受洗招待服事同工名單</h2>
+        <span class="section-sub">點擊個人卡片查看第一、二階段完整職責</span>
+      </div>
+
+      <div class="filter-pills">
+        <button class="filter-pill active" onclick="filterReception('all', this)">全部招待 (12位)</button>
+        <button class="filter-pill" onclick="filterReception('sister', this)">姊妹招待 (招待A～D)</button>
+        <button class="filter-pill" onclick="filterReception('brother', this)">弟兄招待 (招待1～8)</button>
+      </div>
+
+      <div id="sister-section">
+        <div class="section-header">
+          <h3 class="section-title" style="font-size: 16.5px;">姊妹招待（招待 A ～ D）</h3>
+          <span class="section-sub">報到引導 &amp; 受洗池協助</span>
+        </div>
+        <div class="roster-grid" id="sister-grid"></div>
+      </div>
+
+      <div id="brother-section">
+        <div class="section-header">
+          <h3 class="section-title" style="font-size: 16.5px;">弟兄招待（招待 1 ～ 8）</h3>
+          <span class="section-sub">場地預備、受洗池協助 &amp; 講台/走廊拖地</span>
+        </div>
+        <div class="roster-grid" id="brother-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 2: 聖餐服事同工 ==================== -->
+    <section id="panel-communion" class="tab-panel" role="tabpanel">
       <div class="callout-card">
         <div class="callout-icon">🍞</div>
         <div class="callout-text">
           <strong>受洗禮拜聖餐（8人 — 320份）</strong>
-          <span>最重要就是「受洗的人都有拿到聖餐就好」！點擊下方您的位置或姓名，查看任務與專屬路線。</span>
+          <span>最重要就是「受洗的人都有拿到聖餐就好」！可直接點擊場地圖上的 1～8 號圓圈標註，或點擊下方同工卡片。</span>
         </div>
       </div>
 
-      <div class="section-header">
-        <h2 class="section-title">聖餐服事同工（位置 1 ～ 8）</h2>
-        <span class="section-sub">點擊任一張卡片查看詳細說明</span>
-      </div>
-
-      <div class="roster-grid" id="communion-grid"></div>
-
-      <div class="section-header">
+      <!-- 1. FLOOR PLAN FIRST (整個場地圖放前面) -->
+      <div class="section-header" style="margin-top: 6px;">
         <h2 class="section-title">晚崇聖餐位置與動線向量平面圖</h2>
-        <span class="section-sub">依原始座位配置與動線精準重繪 · 可切換高亮個人路線</span>
+        <span class="section-sub">🔗 點擊圖中任意「1～8 號」站位圓圈，直接開啟該同工的服事詳情卡</span>
       </div>
 
       <div class="diagram-card">
         <div class="diagram-top">
           <div>
             <h3 class="diagram-title">台前站位配置 &amp; 會堂發放路線圖</h3>
-            <p class="diagram-desc">點擊下方編號按鈕，可單獨高亮該位置的發放路線；點擊「顯示全部」恢復完整動線。</p>
+            <p class="diagram-desc">可點擊上方編號按鈕篩選單一路線，或直接點擊圖上的 1～8 號圓圈查看該同工任務。</p>
           </div>
         </div>
 
@@ -686,71 +903,19 @@
 
         <div class="svg-frame" id="main-communion-svg-container"></div>
       </div>
-    </section>
 
-    <!-- ==================== TAB 2: 受洗招待服事同工 ==================== -->
-    <section id="panel-reception" class="tab-panel" role="tabpanel">
-      <div class="callout-card">
-        <div class="callout-icon">🤝</div>
-        <div class="callout-text">
-          <strong>招待 14:00 就定位（週六 9:30 定位）</strong>
-          <span>分為「姊妹招待（招待A～D）」與「弟兄招待（招待1～8）」，點擊個人卡片查看第一、二階段完整職責。</span>
-        </div>
-      </div>
-
-      <div class="filter-pills">
-        <button class="filter-pill active" onclick="filterReception('all', this)">全部招待 (12位)</button>
-        <button class="filter-pill" onclick="filterReception('sister', this)">姊妹招待 (招待A～D)</button>
-        <button class="filter-pill" onclick="filterReception('brother', this)">弟兄招待 (招待1～8)</button>
-      </div>
-
-      <div id="sister-section">
-        <div class="section-header">
-          <h2 class="section-title">姊妹招待（招待 A ～ D）</h2>
-          <span class="section-sub">報到引導 &amp; 受洗池協助</span>
-        </div>
-        <div class="roster-grid" id="sister-grid"></div>
-      </div>
-
-      <div id="brother-section">
-        <div class="section-header">
-          <h2 class="section-title">弟兄招待（招待 1 ～ 8）</h2>
-          <span class="section-sub">場地預備、受洗池協助 &amp; 講台/走廊拖地</span>
-        </div>
-        <div class="roster-grid" id="brother-grid"></div>
-      </div>
-
+      <!-- 2. COMMUNION WORKERS BELOW (同工放下面) -->
       <div class="section-header">
-        <h2 class="section-title">姊妹與弟兄招待站位示意圖</h2>
-        <span class="section-sub">依原始站位與箭頭方向精準重繪</span>
+        <h2 class="section-title">聖餐服事同工名單（位置 1 ～ 8）</h2>
+        <span class="section-sub">點擊任一張卡片查看詳細說明</span>
       </div>
 
-      <div class="two-col-diagrams">
-        <div class="diagram-card">
-          <div class="diagram-top">
-            <div>
-              <h3 class="diagram-title">姊妹招待站位圖（女1 ～ 女4）</h3>
-              <p class="diagram-desc">包含 14:00 報到定位（主會堂平面）與受洗中講台站位</p>
-            </div>
-          </div>
-          <div class="svg-frame" id="main-sister-svg-container"></div>
-        </div>
-
-        <div class="diagram-card">
-          <div class="diagram-top">
-            <div>
-              <h3 class="diagram-title">弟兄招待站位圖（男1 ～ 男8）</h3>
-              <p class="diagram-desc">包含受洗中講台站位與保持地板乾燥拖地分工</p>
-            </div>
-          </div>
-          <div class="svg-frame" id="main-brother-svg-container"></div>
-        </div>
-      </div>
+      <div class="roster-grid" id="communion-grid"></div>
     </section>
   </main>
 
   <footer>
-    受洗禮拜服事指南 · 現代極簡高解析向量圖版
+    受洗禮拜服事指南 · 場地圖標註互動超連結 &amp; 深淺色雙模式版
   </footer>
 
   <!-- ==================== WORKER DETAIL POP-UP MODAL ==================== -->
@@ -772,7 +937,7 @@
 
   <script>
     // =========================================================================
-    // 1. EXACT DATA FROM IMAGE 1, 2, 3, 4
+    // 1. EXACT DATA
     // =========================================================================
     const communionWorkers = [
       {
@@ -881,7 +1046,6 @@
     ];
 
     const receptionWorkers = [
-      // Sisters A - D
       {
         id: "ra", category: "sister", code: "女1",
         position: "招待A（女1）", name: "楊艾倫",
@@ -918,7 +1082,6 @@
         stage1: "報到引導：協助報到，BC區中間走道引導入座（會堂中央走道入口處）。",
         stage2: "受洗開始：受洗開始後，到講員休息室外到女廁的走廊引導（於講員休息室前接應受洗者，引導至後走廊）。"
       },
-      // Brothers 1 - 8
       {
         id: "r1", category: "brother", code: "男1",
         position: "招待1（男1）", name: "邵基明",
@@ -994,297 +1157,375 @@
     ];
 
     // =========================================================================
-    // 2. ACCURATE VECTOR SVG GENERATORS (PRESERVING EXACT LAYOUTS, COUNTS & ARROWS)
+    // 2. DIRECT HOTLINK HANDLERS FROM FLOOR PLAN MARKERS
     // =========================================================================
+    function openCommunionByNum(numStr) {
+      const worker = communionWorkers.find(w => w.num === String(numStr));
+      if (worker) {
+        openWorkerModal(worker, "communion");
+      }
+    }
 
-    // Helper to draw clean rows of chairs
+    function openReceptionByCode(codeStr) {
+      const worker = receptionWorkers.find(w => w.code === codeStr);
+      if (worker) {
+        openWorkerModal(worker, "reception");
+      }
+    }
+
+    // =========================================================================
+    // 3. UNIFIED ARCHITECTURAL VECTOR SVG HELPERS WITH CLICKABLE HYPERLINKS
+    // =========================================================================
     function drawChairBlock(x, y, rows, cols, cellW, cellH, gapX, gapY, angle = 0) {
       let out = `<g transform="translate(${x},${y}) rotate(${angle})">`;
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const cx = c * (cellW + gapX);
           const cy = r * (cellH + gapY);
-          out += `<rect x="${cx}" y="${cy}" width="${cellW}" height="${cellH}" rx="2" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>`;
+          out += `<rect x="${cx}" y="${cy}" width="${cellW}" height="${cellH}" rx="2" fill="var(--svg-chair-fill)" stroke="var(--svg-chair-stroke)" stroke-width="1"/>`;
         }
       }
       out += `</g>`;
       return out;
     }
 
-    // SVG 1: 晚崇聖餐位置與動線圖 (Exact replica of Image 2 in clean Apple vector style)
-    function buildCommunionSVG(highlightNum = null) {
+    function drawUnifiedStageFront(yTop) {
+      return `
+        <!-- Stage & Sanctuary Front Frame -->
+        <rect x="28" y="${yTop}" width="504" height="196" rx="12" fill="var(--svg-bg)" stroke="var(--svg-room-border)" stroke-width="1.2"/>
+
+        <!-- Stage Back Wall & Floor Separation -->
+        <line x1="76" y1="${yTop + 124}" x2="532" y2="${yTop + 124}" stroke="var(--svg-room-border)" stroke-width="1" stroke-dasharray="4,3"/>
+
+        <!-- Left Speaker Lounge (講員休息室) -->
+        <rect x="28" y="${yTop + 78}" width="48" height="118" fill="var(--svg-room-bg)" stroke="var(--svg-room-border)" stroke-width="1"/>
+        <text x="52" y="${yTop + 114}" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--svg-text)">講員</text>
+        <text x="52" y="${yTop + 131}" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--svg-text)">休息</text>
+        <text x="52" y="${yTop + 148}" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--svg-text)">室</text>
+
+        <!-- Keyboard / Piano on Left Side of Stage -->
+        <rect x="92" y="${yTop + 116}" width="38" height="14" rx="3" fill="var(--svg-pillar)"/>
+        <line x1="100" y1="${yTop + 130}" x2="100" y2="${yTop + 144}" stroke="var(--svg-subtext)" stroke-width="2"/>
+        <line x1="122" y1="${yTop + 130}" x2="122" y2="${yTop + 144}" stroke="var(--svg-subtext)" stroke-width="2"/>
+
+        <!-- Baptism Pool: EXACTLY CENTERED on the Stage -->
+        <rect x="214" y="${yTop + 144}" width="180" height="26" rx="7" fill="#d0ebff" stroke="#339af0" stroke-width="1.6"/>
+        <text x="304" y="${yTop + 161}" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">受洗池（正中央）</text>
+
+        <!-- Cross & Right Side Screen: Positioned on the RIGHT side of the stage -->
+        <rect x="394" y="${yTop + 82}" width="124" height="54" rx="6" fill="rgba(51, 154, 240, 0.1)" stroke="#74c0fc" stroke-width="1.1"/>
+        <g transform="translate(414, ${yTop + 72})">
+          <line x1="0" y1="0" x2="0" y2="38" stroke="#c92a2a" stroke-width="4" stroke-linecap="round"/>
+          <line x1="-11" y1="12" x2="11" y2="12" stroke="#c92a2a" stroke-width="4" stroke-linecap="round"/>
+        </g>
+
+        <!-- Front Audience Seating (Aligned with A:4 cols, B:2 cols, C:6 cols, D:3 cols) -->
+        ${drawChairBlock(42, yTop + 206, 3, 4, 15, 10, 3, 5)}
+        ${drawChairBlock(122, yTop + 206, 3, 2, 15, 10, 3, 5)}
+        ${drawChairBlock(172, yTop + 206, 3, 6, 15, 10, 3, 5)}
+        ${drawChairBlock(294, yTop + 206, 3, 3, 15, 10, 3, 5)}
+        ${drawChairBlock(366, yTop + 206, 3, 6, 15, 10, 3, 5)}
+      `;
+    }
+
+    // SVG 1: 晚崇聖餐位置與動線圖 (Every 1-8 marker is a clickable hotlink opening that worker's card)
+    function buildCommunionSVG(highlightNum = null, interactive = true) {
       const dimClass = highlightNum && highlightNum !== 'all' ? 'dimmed' : '';
       const hl = (n) => (highlightNum === String(n) ? 'highlighted' : '');
+      const linkAttr = (n) => interactive
+        ? `class="map-hotlink" onclick="openCommunionByNum('${n}')" role="button" tabindex="0"`
+        : '';
 
       return `
       <svg viewBox="0 0 680 1120" xmlns="http://www.w3.org/2000/svg" class="${dimClass}">
         <defs>
           <marker id="arr-dark" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
-            <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#1d1d1f"/>
+            <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="var(--svg-arrow)"/>
           </marker>
           <marker id="arr-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
             <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#c92a2a"/>
           </marker>
         </defs>
 
-        <!-- Background Card -->
-        <rect x="0" y="0" width="680" height="1120" rx="16" fill="#ffffff"/>
+        <rect x="0" y="0" width="680" height="1120" rx="16" fill="var(--svg-bg)"/>
 
         <!-- Top Banner Reminder -->
-        <rect x="24" y="18" width="632" height="38" rx="10" fill="#fff5f5" stroke="#ffc9c9" stroke-width="1"/>
-        <text x="340" y="42" text-anchor="middle" font-size="15.5" font-weight="700" fill="#c92a2a">
+        <rect x="24" y="18" width="632" height="38" rx="10" fill="rgba(201, 42, 42, 0.08)" stroke="rgba(201, 42, 42, 0.3)" stroke-width="1"/>
+        <text x="340" y="42" text-anchor="middle" font-size="15.5" font-weight="700" fill="#e03131">
           受洗禮拜聖餐，最重要就是受洗的人都有拿到聖餐就好！
         </text>
-        <text x="340" y="78" text-anchor="middle" font-size="14.5" font-weight="700" fill="#1d1d1f">
-          【受洗禮拜聖餐 8 人 — 320 份】晚崇聖餐位置
+        <text x="340" y="78" text-anchor="middle" font-size="14.5" font-weight="700" fill="var(--svg-text)">
+          【受洗禮拜聖餐 8 人 — 320 份】晚崇聖餐位置（點擊編號查看詳情）
         </text>
 
-        <!-- ==================== TOP SECTION: STAGE FORMATION ==================== -->
         <!-- Pastor -->
-        <circle cx="268" cy="108" r="10" fill="#1d1d1f"/>
-        <path d="M251,134 C251,123 285,123 285,134 Z" fill="#1d1d1f"/>
-        <text x="296" y="126" font-size="14" font-weight="700" fill="#1d1d1f">牧師</text>
+        <circle cx="268" cy="108" r="10" fill="var(--svg-text)"/>
+        <path d="M251,134 C251,123 285,123 285,134 Z" fill="var(--svg-text)"/>
+        <text x="296" y="126" font-size="14" font-weight="700" fill="var(--svg-text)">牧師</text>
 
-        <!-- Communion Table (with 2 round plates) -->
-        <rect x="206" y="142" width="124" height="44" rx="8" fill="#e9ecef" stroke="#868e96" stroke-width="1.5"/>
-        <circle cx="242" cy="164" r="14" fill="#ffffff" stroke="#495057" stroke-width="1.5"/>
-        <circle cx="294" cy="164" r="14" fill="#ffffff" stroke="#495057" stroke-width="1.5"/>
+        <!-- Communion Table -->
+        <rect x="206" y="142" width="124" height="44" rx="8" fill="var(--svg-room-bg)" stroke="var(--svg-room-border)" stroke-width="1.5"/>
+        <circle cx="242" cy="164" r="14" fill="var(--svg-bg)" stroke="var(--svg-subtext)" stroke-width="1.5"/>
+        <circle cx="294" cy="164" r="14" fill="var(--svg-bg)" stroke="var(--svg-subtext)" stroke-width="1.5"/>
 
-        <!-- Left Red Group: 8, 7, 6 -->
+        <!-- Left Red Group: 8, 7, 6 (Clickable Hotlinks) -->
         <g class="route-group ${hl(8)}">
-          <circle cx="66" cy="184" r="18" fill="#c92a2a"/>
-          <text x="66" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">8</text>
-          <text x="66" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="#1d1d1f">關門</text>
+          <g ${linkAttr(8)}>
+            <circle cx="66" cy="184" r="19" fill="#c92a2a"/>
+            <text x="66" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">8</text>
+            <text x="66" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="var(--svg-text)">關門</text>
+          </g>
         </g>
         <g class="route-group ${hl(7)}">
-          <circle cx="112" cy="184" r="18" fill="#c92a2a"/>
-          <text x="112" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">7</text>
+          <g ${linkAttr(7)}>
+            <circle cx="112" cy="184" r="19" fill="#c92a2a"/>
+            <text x="112" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">7</text>
+          </g>
         </g>
         <g class="route-group ${hl(6)}">
-          <circle cx="158" cy="184" r="18" fill="#c92a2a"/>
-          <text x="158" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">6</text>
+          <g ${linkAttr(6)}>
+            <circle cx="158" cy="184" r="19" fill="#c92a2a"/>
+            <text x="158" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">6</text>
+          </g>
         </g>
 
-        <!-- Center Front: 5 (Red) & 4 (Olive Prayer) -->
+        <!-- Center Front: 5 & 4 (Clickable Hotlinks) -->
         <g class="route-group ${hl(5)}">
-          <circle cx="242" cy="212" r="18" fill="#c92a2a"/>
-          <text x="242" y="218" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">5</text>
+          <g ${linkAttr(5)}>
+            <circle cx="242" cy="212" r="19" fill="#c92a2a"/>
+            <text x="242" y="218" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">5</text>
+          </g>
         </g>
         <g class="route-group ${hl(4)}">
-          <circle cx="294" cy="212" r="18" fill="#6c7a1e"/>
-          <text x="294" y="218" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">4</text>
-          <rect x="271" y="235" width="46" height="22" rx="6" fill="#fff3bf" stroke="#fcc419" stroke-width="1"/>
-          <text x="294" y="250" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">禱告</text>
+          <g ${linkAttr(4)}>
+            <circle cx="294" cy="212" r="19" fill="#6c7a1e"/>
+            <text x="294" y="218" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">4</text>
+            <rect x="271" y="235" width="46" height="22" rx="6" fill="#fff3bf" stroke="#fcc419" stroke-width="1"/>
+            <text x="294" y="250" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">禱告</text>
+          </g>
         </g>
 
-        <!-- Right Blue Group: 3, 2, 1 -->
+        <!-- Right Blue Group: 3, 2, 1 (Clickable Hotlinks) -->
         <g class="route-group ${hl(3)}">
-          <circle cx="378" cy="184" r="18" fill="#0066cc"/>
-          <text x="378" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">3</text>
+          <g ${linkAttr(3)}>
+            <circle cx="378" cy="184" r="19" fill="#0066cc"/>
+            <text x="378" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">3</text>
+          </g>
         </g>
         <g class="route-group ${hl(2)}">
-          <circle cx="424" cy="184" r="18" fill="#0066cc"/>
-          <text x="424" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">2</text>
+          <g ${linkAttr(2)}>
+            <circle cx="424" cy="184" r="19" fill="#0066cc"/>
+            <text x="424" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">2</text>
+          </g>
         </g>
-        <rect x="364" y="206" width="74" height="22" rx="6" fill="#e7f5ff" stroke="#74c0fc" stroke-width="1"/>
+        <rect x="364" y="206" width="74" height="22" rx="6" fill="rgba(0, 102, 204, 0.12)" stroke="#74c0fc" stroke-width="1"/>
         <text x="401" y="221" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0066cc">推聖餐桌</text>
 
         <g class="route-group ${hl(1)}">
-          <circle cx="470" cy="184" r="18" fill="#0066cc"/>
-          <text x="470" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">1</text>
-          <text x="470" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="#1d1d1f">確認</text>
+          <g ${linkAttr(1)}>
+            <circle cx="470" cy="184" r="19" fill="#0066cc"/>
+            <text x="470" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">1</text>
+            <text x="470" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="var(--svg-text)">確認</text>
+          </g>
         </g>
 
-        <!-- ==================== FLOOR PLAN TITLE ==================== -->
-        <text x="275" y="294" text-anchor="middle" font-size="22" font-weight="800" letter-spacing="2" fill="#1d1d1f">
+        <text x="275" y="294" text-anchor="middle" font-size="22" font-weight="800" letter-spacing="2" fill="var(--svg-text)">
           晚崇聖餐動線
         </text>
 
-        <!-- ==================== SANCTUARY ARCHITECTURAL FLOOR PLAN ==================== -->
-        <!-- Speaker Lounge (講員休息室) -->
-        <rect x="36" y="318" width="96" height="58" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1.2"/>
-        <text x="84" y="343" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">講員</text>
-        <text x="84" y="361" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">休息室</text>
+        <!-- Speaker Lounge & Stage -->
+        <rect x="36" y="318" width="96" height="58" rx="6" fill="var(--svg-room-bg)" stroke="var(--svg-room-border)" stroke-width="1.2"/>
+        <text x="84" y="343" text-anchor="middle" font-size="13" font-weight="700" fill="var(--svg-text)">講員</text>
+        <text x="84" y="361" text-anchor="middle" font-size="13" font-weight="700" fill="var(--svg-text)">休息室</text>
 
-        <!-- Stage (舞台) -->
-        <rect x="132" y="318" width="290" height="58" rx="6" fill="#f8f9fa" stroke="#868e96" stroke-width="1.2"/>
-        <text x="277" y="352" text-anchor="middle" font-size="15" font-weight="700" fill="#1d1d1f">舞台</text>
+        <rect x="132" y="318" width="290" height="58" rx="6" fill="var(--svg-panel-gray)" stroke="var(--svg-room-border)" stroke-width="1.2"/>
+        <text x="277" y="352" text-anchor="middle" font-size="15" font-weight="700" fill="var(--svg-text)">舞台</text>
 
         <!-- Diagonal Left Wing Chairs (6 rows x 4 seats) -->
         ${drawChairBlock(62, 378, 6, 4, 15, 7, 3, 6, 30)}
 
         <!-- C1 Section (38位) - Front Center -->
-        <rect x="172" y="394" width="32" height="54" rx="4" fill="#adb5bd"/>
-        <rect x="332" y="394" width="32" height="54" rx="4" fill="#adb5bd"/>
+        <rect x="172" y="394" width="32" height="54" rx="4" fill="var(--svg-pillar)"/>
+        <rect x="332" y="394" width="32" height="54" rx="4" fill="var(--svg-pillar)"/>
         ${drawChairBlock(212, 396, 4, 6, 16, 8, 3, 5)}
-        <rect x="242" y="410" width="52" height="32" rx="6" fill="rgba(255,255,255,0.92)"/>
-        <text x="268" y="424" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">C1區</text>
-        <text x="268" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">38位</text>
+        <rect x="242" y="410" width="52" height="32" rx="6" fill="var(--svg-label-bg)"/>
+        <text x="268" y="424" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">C1區</text>
+        <text x="268" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">38位</text>
 
         <!-- Front Right Wing Chairs (4 rows x 2 cols) -->
         ${drawChairBlock(380, 396, 4, 2, 16, 8, 3, 5)}
 
-        <!-- A區 (71位) - Left Main Block (9 rows x 4 cols) -->
+        <!-- A區 (71位) - 9 rows x 4 cols -->
         ${drawChairBlock(42, 466, 9, 4, 16, 9, 3, 6)}
-        <rect x="66" y="476" width="52" height="32" rx="6" fill="rgba(255,255,255,0.94)"/>
-        <text x="92" y="490" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">A區</text>
-        <text x="92" y="504" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">71位</text>
+        <rect x="66" y="476" width="52" height="32" rx="6" fill="var(--svg-label-bg)"/>
+        <text x="92" y="490" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">A區</text>
+        <text x="92" y="504" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">71位</text>
 
-        <!-- B區 (28位) - Inner Left Block (7 rows x 2 cols) -->
+        <!-- B區 (28位) - 7 rows x 2 cols -->
         ${drawChairBlock(154, 492, 7, 2, 16, 9, 3, 6)}
-        <rect x="150" y="532" width="46" height="32" rx="6" fill="rgba(255,255,255,0.94)"/>
-        <text x="173" y="546" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">B區</text>
-        <text x="173" y="560" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">28位</text>
+        <rect x="150" y="532" width="46" height="32" rx="6" fill="var(--svg-label-bg)"/>
+        <text x="173" y="546" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">B區</text>
+        <text x="173" y="560" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">28位</text>
 
-        <!-- C2區 (63位) - Center Main Block (7 rows x 6 cols) -->
+        <!-- C2區 (63位) - 7 rows x 6 cols -->
         ${drawChairBlock(212, 492, 7, 6, 16, 9, 3, 6)}
-        <rect x="242" y="522" width="52" height="32" rx="6" fill="rgba(255,255,255,0.94)"/>
-        <text x="268" y="536" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">C2區</text>
-        <text x="268" y="550" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">63位</text>
+        <rect x="242" y="522" width="52" height="32" rx="6" fill="var(--svg-label-bg)"/>
+        <text x="268" y="536" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">C2區</text>
+        <text x="268" y="550" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">63位</text>
 
-        <!-- D區 (30位) - Right Main Block (6 rows x 3 cols) -->
+        <!-- D區 (30位) - 6 rows x 3 cols -->
         ${drawChairBlock(346, 492, 6, 3, 16, 9, 3, 6)}
-        <rect x="348" y="516" width="50" height="32" rx="6" fill="rgba(255,255,255,0.94)"/>
-        <text x="373" y="530" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">D區</text>
-        <text x="373" y="544" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">30位</text>
+        <rect x="348" y="516" width="50" height="32" rx="6" fill="var(--svg-label-bg)"/>
+        <text x="373" y="530" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">D區</text>
+        <text x="373" y="544" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">30位</text>
 
-        <!-- 大親子室 (Large Parent-Child Room on Right) -->
-        <rect x="466" y="454" width="44" height="106" rx="8" fill="#f8f9fa" stroke="#868e96" stroke-width="1.2"/>
-        <text x="488" y="484" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f" writing-mode="tb">大親子室</text>
+        <!-- 大親子室 -->
+        <rect x="466" y="454" width="44" height="106" rx="8" fill="var(--svg-panel-gray)" stroke="var(--svg-room-border)" stroke-width="1.2"/>
+        <text x="488" y="484" text-anchor="middle" font-size="13" font-weight="700" fill="var(--svg-text)" writing-mode="tb">大親子室</text>
 
-        <!-- Mid-Hall Return Queue Box (回程隊伍) -->
+        <!-- Mid-Hall Return Queue Box -->
         <rect x="198" y="608" width="118" height="24" rx="5" fill="#fff4e6" stroke="#fd7e14" stroke-width="1.2"/>
         <text x="257" y="624" text-anchor="middle" font-size="11.5" font-weight="700" fill="#d9480f">回程隊伍</text>
 
-        <!-- E區 (25位) & 音控台 (Sound Booth) -->
+        <!-- E區 (25位) & 音控台 -->
         ${drawChairBlock(82, 636, 2, 4, 16, 9, 3, 5)}
-        <rect x="86" y="634" width="66" height="20" rx="4" fill="rgba(255,255,255,0.92)"/>
-        <text x="119" y="648" text-anchor="middle" font-size="11.5" font-weight="700" fill="#c92a2a">E區 25位</text>
+        <rect x="86" y="634" width="66" height="20" rx="4" fill="var(--svg-label-bg)"/>
+        <text x="119" y="648" text-anchor="middle" font-size="11.5" font-weight="700" fill="#e03131">E區 25位</text>
 
-        <rect x="36" y="664" width="116" height="34" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1.2"/>
-        <text x="94" y="686" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">音控台</text>
+        <rect x="36" y="664" width="116" height="34" rx="6" fill="var(--svg-room-bg)" stroke="var(--svg-room-border)" stroke-width="1.2"/>
+        <text x="94" y="686" text-anchor="middle" font-size="13" font-weight="700" fill="var(--svg-text)">音控台</text>
 
-        <!-- 影音 (AV Booth Left) & Small AV & 親子室 (Parent-Child Room Right) -->
-        <rect x="184" y="636" width="54" height="62" rx="6" fill="#e9ecef" stroke="#868e96" stroke-width="1.2"/>
-        <text x="211" y="662" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">影音</text>
+        <!-- 影音 & 親子室 -->
+        <rect x="184" y="636" width="54" height="62" rx="6" fill="var(--svg-room-bg)" stroke="var(--svg-room-border)" stroke-width="1.2"/>
+        <text x="211" y="662" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--svg-text)">影音</text>
 
-        <rect x="328" y="636" width="46" height="22" rx="4" fill="#e9ecef" stroke="#868e96" stroke-width="1"/>
-        <text x="351" y="651" text-anchor="middle" font-size="10.5" font-weight="700" fill="#495057">影音</text>
+        <rect x="328" y="636" width="46" height="22" rx="4" fill="var(--svg-room-bg)" stroke="var(--svg-room-border)" stroke-width="1"/>
+        <text x="351" y="651" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--svg-subtext)">影音</text>
 
         <rect x="328" y="662" width="96" height="36" rx="6" fill="#fff4e6" stroke="#ffa94d" stroke-width="1.2"/>
         <text x="376" y="685" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">親子室</text>
 
-        <!-- F區 Left (84位 - 14 rows x 3 cols) & F區 Right (115位 - 15 rows x 4 cols) -->
+        <!-- F區 Left (84位) & F區 Right (115位) -->
         ${drawChairBlock(184, 704, 14, 3, 16, 9, 3, 5)}
-        <rect x="186" y="758" width="48" height="34" rx="6" fill="rgba(255,255,255,0.94)"/>
-        <text x="210" y="773" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">F區</text>
-        <text x="210" y="787" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">84位</text>
+        <rect x="186" y="758" width="48" height="34" rx="6" fill="var(--svg-label-bg)"/>
+        <text x="210" y="773" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">F區</text>
+        <text x="210" y="787" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">84位</text>
 
         ${drawChairBlock(278, 704, 15, 4, 16, 9, 3, 5)}
-        <rect x="290" y="758" width="52" height="34" rx="6" fill="rgba(255,255,255,0.94)"/>
-        <text x="316" y="773" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">F區</text>
-        <text x="316" y="787" text-anchor="middle" font-size="12" font-weight="700" fill="#c92a2a">115位</text>
+        <rect x="290" y="758" width="52" height="34" rx="6" fill="var(--svg-label-bg)"/>
+        <text x="316" y="773" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">F區</text>
+        <text x="316" y="787" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">115位</text>
 
-        <!-- Center Dashed Line between F Left & F Right -->
-        <line x1="258" y1="660" x2="258" y2="965" stroke="#c92a2a" stroke-width="2" stroke-dasharray="6,5"/>
+        <line x1="258" y1="660" x2="258" y2="965" stroke="#e03131" stroke-width="2" stroke-dasharray="6,5"/>
 
-        <!-- ==================== MOVEMENT ARROWS & NUMBERED MARKERS (1 to 8) ==================== -->
-        <!-- Marker 1: Front Right -> Down Right Aisle & D Section -->
+        <!-- Movement Arrows & Clickable Floor Plan Markers 1 to 8 -->
         <g class="route-group ${hl(1)}">
-          <circle cx="372" cy="378" r="12" fill="#1d1d1f"/>
-          <text x="372" y="383" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">1</text>
-          <path d="M 398 394 L 384 394 L 384 452" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
-          <path d="M 378 480 L 410 480 L 410 534" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(1)}>
+            <circle cx="372" cy="378" r="13" fill="var(--svg-text)"/>
+            <text x="372" y="383" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">1</text>
+          </g>
+          <path d="M 398 394 L 384 394 L 384 452" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <path d="M 378 480 L 410 480 L 410 534" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Marker 2: Front C1 Right -> C1 & C2 Right -->
         <g class="route-group ${hl(2)}">
-          <circle cx="312" cy="396" r="12" fill="#1d1d1f"/>
-          <text x="312" y="401" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">2</text>
-          <path d="M 302 414 L 324 414" fill="none" stroke="#1d1d1f" stroke-width="2.2"/>
-          <path d="M 313 414 L 313 456" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
-          <path d="M 284 480 L 324 480 L 324 534" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(2)}>
+            <circle cx="312" cy="396" r="13" fill="var(--svg-text)"/>
+            <text x="312" y="401" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">2</text>
+          </g>
+          <path d="M 302 414 L 324 414" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2"/>
+          <path d="M 313 414 L 313 456" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <path d="M 284 480 L 324 480 L 324 534" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Marker 3: Front C1 Left -> C1 & C2 Left -->
         <g class="route-group ${hl(3)}">
-          <circle cx="216" cy="396" r="12" fill="#1d1d1f"/>
-          <text x="216" y="401" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">3</text>
-          <path d="M 206 414 L 228 414" fill="none" stroke="#1d1d1f" stroke-width="2.2"/>
-          <path d="M 217 414 L 217 456" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
-          <path d="M 244 480 L 206 480 L 206 534" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(3)}>
+            <circle cx="216" cy="396" r="13" fill="var(--svg-text)"/>
+            <text x="216" y="401" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">3</text>
+          </g>
+          <path d="M 206 414 L 228 414" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2"/>
+          <path d="M 217 414 L 217 456" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <path d="M 244 480 L 206 480 L 206 534" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Marker 4: Speaker Lounge Front -> Diagonal & A/B Sections -->
         <g class="route-group ${hl(4)}">
-          <circle cx="158" cy="396" r="12" fill="#1d1d1f"/>
-          <text x="158" y="401" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">4</text>
-          <path d="M 140 426 L 122 412" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
-          <path d="M 148 424 L 124 456" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
-          <path d="M 116 480 L 142 480" fill="none" stroke="#1d1d1f" stroke-width="2.2"/>
-          <path d="M 129 480 L 129 534" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(4)}>
+            <circle cx="158" cy="396" r="13" fill="var(--svg-text)"/>
+            <text x="158" y="401" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">4</text>
+          </g>
+          <path d="M 140 426 L 122 412" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <path d="M 148 424 L 124 456" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <path d="M 116 480 L 142 480" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2"/>
+          <path d="M 129 480 L 129 534" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Marker 5: Mid-hall -> E Section & Mid Aisle -->
         <g class="route-group ${hl(5)}">
-          <circle cx="268" cy="648" r="12" fill="#1d1d1f"/>
-          <text x="268" y="653" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">5</text>
-          <path d="M 248 666 L 266 666" fill="none" stroke="#1d1d1f" stroke-width="2.2"/>
-          <path d="M 251 666 L 251 702" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(5)}>
+            <circle cx="268" cy="648" r="13" fill="var(--svg-text)"/>
+            <text x="268" y="653" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">5</text>
+          </g>
+          <path d="M 248 666 L 266 666" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2"/>
+          <path d="M 251 666 L 251 702" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Marker 6: Rear Center Right -> F Section Right (115位) -->
         <g class="route-group ${hl(6)}">
-          <circle cx="274" cy="942" r="12" fill="#1d1d1f"/>
-          <text x="274" y="947" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">6</text>
-          <path d="M 270 924 L 270 886" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(6)}>
+            <circle cx="274" cy="942" r="13" fill="var(--svg-text)"/>
+            <text x="274" y="947" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">6</text>
+          </g>
+          <path d="M 270 924 L 270 886" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Marker 7: Rear Center Left -> F Section Left (84位) -->
         <g class="route-group ${hl(7)}">
-          <circle cx="232" cy="942" r="12" fill="#1d1d1f"/>
-          <text x="232" y="947" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">7</text>
-          <path d="M 226 928 L 244 928 L 244 886" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(7)}>
+            <circle cx="232" cy="942" r="13" fill="var(--svg-text)"/>
+            <text x="232" y="947" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">7</text>
+          </g>
+          <path d="M 226 928 L 244 928 L 244 886" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Marker 8: Right Corridor -> 大親子室 & 親子室 -->
         <g class="route-group ${hl(8)}">
-          <circle cx="418" cy="618" r="12" fill="#1d1d1f"/>
-          <text x="418" y="623" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">8</text>
-          <path d="M 438 602 L 438 512 L 460 512" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
-          <path d="M 438 634 L 438 680 L 426 680" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <g ${linkAttr(8)}>
+            <circle cx="418" cy="618" r="13" fill="var(--svg-text)"/>
+            <text x="418" y="623" text-anchor="middle" font-size="12" font-weight="700" fill="var(--svg-bg)">8</text>
+          </g>
+          <path d="M 438 602 L 438 512 L 460 512" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
+          <path d="M 438 634 L 438 680 L 426 680" fill="none" stroke="var(--svg-arrow)" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- ==================== BOTTOM RETURN LINEUP (回程隊伍 5-6-7-8-1-2-3-4) ==================== -->
+        <!-- Bottom Return Lineup (Also clickable!) -->
         <rect x="200" y="974" width="116" height="28" rx="6" fill="#fff4e6" stroke="#fd7e14" stroke-width="1.3"/>
         <text x="258" y="993" text-anchor="middle" font-size="13" font-weight="700" fill="#d9480f">回程隊伍</text>
 
-        <!-- Left & Right Red Return Arrows -->
         <path d="M 142 1030 L 128 1030 L 128 994" fill="none" stroke="#c92a2a" stroke-width="2.4" marker-end="url(#arr-red)"/>
         <path d="M 374 1030 L 388 1030 L 388 994" fill="none" stroke="#c92a2a" stroke-width="2.4" marker-end="url(#arr-red)"/>
 
-        <!-- 8 Red Circles in Exact Order: 5, 6, 7, 8, 1, 2, 3, 4 -->
         ${[5, 6, 7, 8, 1, 2, 3, 4].map((num, idx) => {
           const cx = 160 + idx * 28;
           return `
             <g class="route-group ${hl(num)}">
-              <circle cx="${cx}" cy="1030" r="12" fill="#c92a2a"/>
-              <text x="${cx}" y="1035" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">${num}</text>
+              <g ${linkAttr(num)}>
+                <circle cx="${cx}" cy="1030" r="12.5" fill="#c92a2a"/>
+                <text x="${cx}" y="1035" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">${num}</text>
+              </g>
             </g>
           `;
         }).join('')}
-        <text x="258" y="1064" text-anchor="middle" font-size="12" font-weight="600" fill="#6e6e73">
+        <text x="258" y="1064" text-anchor="middle" font-size="12" font-weight="600" fill="var(--svg-subtext)">
           回程整隊順序：5 → 6 → 7 → 8 → 1 → 2 → 3 → 4
         </text>
       </svg>`;
     }
 
-    // SVG 2: 姊妹招待站位圖 (Exact replica of Image 3 - Top Sanctuary Registration + Bottom Stage Baptism)
-    function buildSisterSVG(highlightCode = null) {
-      const hl = (code) => (!highlightCode || highlightCode === code ? '1' : '0.28');
+    // SVG 2: 姊妹招待站位圖 (All 女1～女4 badges & callouts are clickable hotlinks)
+    function buildSisterSVG(highlightCode = null, interactive = true) {
+      const hl = (code) => (!highlightCode || highlightCode === code ? '1' : '0.24');
+      const linkAttr = (code) => interactive
+        ? `class="map-hotlink" onclick="openReceptionByCode('${code}')" role="button" tabindex="0"`
+        : '';
 
       return `
-      <svg viewBox="0 0 560 760" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 560 790" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr-pink" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
             <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#d93865"/>
@@ -1294,148 +1535,147 @@
           </marker>
         </defs>
 
-        <rect x="0" y="0" width="560" height="760" rx="16" fill="#ffffff"/>
+        <rect x="0" y="0" width="560" height="790" rx="16" fill="var(--svg-bg)"/>
 
         <!-- ==================== TOP PANEL: 14:00 報到就定位 ==================== -->
-        <rect x="16" y="14" width="528" height="360" rx="16" fill="#fff9fb" stroke="#ffdeeb" stroke-width="1.5"/>
+        <rect x="14" y="14" width="532" height="382" rx="16" fill="var(--svg-panel-pink)" stroke="var(--svg-panel-pink-border)" stroke-width="1.5"/>
 
-        <!-- Left Time Note -->
-        <text x="32" y="48" font-size="16" font-weight="800" fill="#1d1d1f">招待 14:00 就定位</text>
-        <text x="32" y="72" font-size="15" font-weight="700" fill="#d93865">（週六 9:30 定位）</text>
+        <text x="28" y="46" font-size="15.5" font-weight="800" fill="var(--svg-text)">招待 14:00 就定位</text>
+        <text x="28" y="68" font-size="14.5" font-weight="700" fill="#d93865">（週六 9:30 定位）</text>
 
         <!-- Sanctuary Map Box -->
-        <rect x="190" y="28" width="336" height="330" rx="12" fill="#ffffff" stroke="#e9ecef" stroke-width="1.5"/>
+        <rect x="176" y="26" width="356" height="356" rx="12" fill="var(--svg-bg)" stroke="var(--svg-panel-gray-border)" stroke-width="1.4"/>
 
         <!-- Speaker Lounge & Stage -->
-        <rect x="198" y="36" width="62" height="46" rx="6" fill="#f1f3f5" stroke="#adb5bd" stroke-width="1"/>
-        <text x="229" y="56" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">講員</text>
-        <text x="229" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">休息室</text>
+        <rect x="184" y="34" width="66" height="44" rx="6" fill="var(--svg-room-bg)" stroke="var(--svg-room-border)" stroke-width="1"/>
+        <text x="217" y="53" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--svg-text)">講員</text>
+        <text x="217" y="68" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--svg-text)">休息室</text>
 
-        <rect x="266" y="36" width="252" height="46" rx="6" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1"/>
-        <text x="392" y="56" text-anchor="middle" font-size="15" font-weight="800" fill="#1d1d1f">舞臺</text>
-        <text x="392" y="74" text-anchor="middle" font-size="14" font-weight="700" fill="#495057">主會堂</text>
+        <rect x="254" y="34" width="234" height="44" rx="6" fill="var(--svg-panel-gray)" stroke="var(--svg-room-border)" stroke-width="1"/>
+        <text x="371" y="53" text-anchor="middle" font-size="14.5" font-weight="800" fill="var(--svg-text)">舞臺</text>
+        <text x="371" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="var(--svg-subtext)">主會堂</text>
 
-        <!-- Chairs layout matching Image 3 -->
-        ${drawChairBlock(210, 96, 5, 4, 11, 5, 2, 4, 28)}
-        <rect x="292" y="96" width="16" height="34" rx="3" fill="#adb5bd"/>
-        <rect x="404" y="96" width="16" height="34" rx="3" fill="#adb5bd"/>
-        ${drawChairBlock(316, 96, 3, 5, 13, 6, 2, 4)}
-        ${drawChairBlock(432, 96, 3, 4, 13, 6, 2, 4)}
+        <!-- Chairs matching Communion Map -->
+        ${drawChairBlock(204, 84, 6, 4, 11, 5, 2, 4, 30)}
+        <rect x="284" y="92" width="20" height="38" rx="3" fill="var(--svg-pillar)"/>
+        <rect x="404" y="92" width="20" height="38" rx="3" fill="var(--svg-pillar)"/>
+        ${drawChairBlock(310, 92, 4, 6, 12, 6, 2, 4)}
+        ${drawChairBlock(432, 92, 4, 2, 12, 6, 2, 4)}
 
-        <!-- Main Seating Rows (A, B, C, D) -->
-        ${drawChairBlock(204, 152, 6, 4, 13, 6, 2, 5)}
-        ${drawChairBlock(272, 152, 6, 2, 13, 6, 2, 5)}
-        ${drawChairBlock(314, 152, 6, 6, 13, 6, 2, 5)}
-        ${drawChairBlock(416, 152, 6, 5, 13, 6, 2, 5)}
+        ${drawChairBlock(188, 152, 6, 4, 12, 6, 2, 5)}
+        ${drawChairBlock(264, 152, 6, 2, 12, 6, 2, 5)}
+        ${drawChairBlock(310, 152, 6, 6, 12, 6, 2, 5)}
+        ${drawChairBlock(410, 152, 6, 3, 12, 6, 2, 5)}
 
-        <!-- 女1 (報到) at Front Right -->
+        <!-- 女1 (報到) - Clickable -->
         <g opacity="${hl('女1')}">
-          <rect x="396" y="108" width="114" height="28" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.5"/>
-          <text x="453" y="127" text-anchor="middle" font-size="13.5" font-weight="800" fill="#a61e4d">女1（報到）</text>
-          <circle cx="453" cy="154" r="14" fill="#d93865"/>
-          <text x="453" y="159" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">女1</text>
+          <g ${linkAttr('女1')}>
+            <rect x="408" y="104" width="112" height="26" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.5"/>
+            <text x="464" y="121" text-anchor="middle" font-size="12.5" font-weight="800" fill="#a61e4d">女1（報到）</text>
+            <circle cx="484" cy="148" r="14.5" fill="#d93865"/>
+            <text x="484" y="153" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女1</text>
+          </g>
         </g>
 
-        <!-- 女3 ↑ (AB區中間走道) -->
+        <!-- 女3 ↑ - Clickable -->
         <g opacity="${hl('女3')}">
-          <circle cx="226" cy="278" r="15" fill="#d93865"/>
-          <text x="226" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">女3</text>
-          <path d="M 262 292 L 262 256" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
-          <rect x="198" y="302" width="76" height="24" rx="7" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
-          <text x="236" y="318" text-anchor="middle" font-size="12.5" font-weight="800" fill="#a61e4d">女3 ↑</text>
+          <g ${linkAttr('女3')}>
+            <circle cx="222" cy="292" r="14.5" fill="#d93865"/>
+            <text x="222" y="297" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女3</text>
+            <rect x="192" y="316" width="76" height="24" rx="7" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
+            <text x="230" y="332" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">女3 ↑</text>
+          </g>
+          <path d="M 252 308 L 252 268" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
         </g>
 
-        <!-- ← 女4 ↓ (BC區中間走道) -->
+        <!-- ← 女4 ↓ - Clickable -->
         <g opacity="${hl('女4')}">
-          <circle cx="326" cy="278" r="15" fill="#d93865"/>
-          <text x="326" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">女4</text>
-          <path d="M 358 314 L 326 314" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
-          <rect x="362" y="302" width="76" height="24" rx="7" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
-          <text x="400" y="318" text-anchor="middle" font-size="12.5" font-weight="800" fill="#a61e4d">← 女4 ↓</text>
+          <g ${linkAttr('女4')}>
+            <circle cx="316" cy="292" r="14.5" fill="#d93865"/>
+            <text x="316" y="297" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女4</text>
+            <rect x="350" y="316" width="76" height="24" rx="7" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
+            <text x="388" y="332" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">← 女4 ↓</text>
+          </g>
+          <path d="M 346 328 L 314 328" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
         </g>
 
-        <!-- 女2 ↑ (中央側門引導報到) -->
+        <!-- 女2 ↑ - Clickable -->
         <g opacity="${hl('女2')}">
-          <circle cx="486" cy="278" r="15" fill="#d93865"/>
-          <text x="486" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">女2</text>
-          <path d="M 454 292 L 454 256" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
-          <rect x="444" y="302" width="74" height="24" rx="7" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
-          <text x="481" y="318" text-anchor="middle" font-size="12.5" font-weight="800" fill="#a61e4d">女2 ↑</text>
+          <g ${linkAttr('女2')}>
+            <circle cx="496" cy="292" r="14.5" fill="#d93865"/>
+            <text x="496" y="297" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女2</text>
+            <rect x="448" y="316" width="74" height="24" rx="7" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
+            <text x="485" y="332" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">女2 ↑</text>
+          </g>
+          <path d="M 466 308 L 466 268" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
         </g>
 
         <!-- ==================== BOTTOM PANEL: 受洗中招待站位圖 ==================== -->
-        <rect x="16" y="390" width="528" height="354" rx="16" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
-        <text x="32" y="422" font-size="17" font-weight="800" fill="#1d1d1f">受洗中招待站位圖（姊妹組）</text>
+        <rect x="14" y="410" width="532" height="366" rx="16" fill="var(--svg-panel-gray)" stroke="var(--svg-panel-gray-border)" stroke-width="1.5"/>
+        <text x="28" y="440" font-size="16.5" font-weight="800" fill="var(--svg-text)">受洗中招待站位圖（姊妹組）</text>
 
-        <!-- Stage Perspective Backdrop -->
-        <rect x="32" y="438" width="496" height="218" rx="12" fill="#ffffff" stroke="#ced4da" stroke-width="1.2"/>
-        <!-- Left Speaker Lounge Door -->
-        <rect x="32" y="534" width="48" height="122" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-        <text x="56" y="568" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">講員</text>
-        <text x="56" y="586" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">休息</text>
-        <text x="56" y="604" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">室</text>
+        ${drawUnifiedStageFront(454)}
 
-        <!-- Baptism Pool on Stage -->
-        <rect x="160" y="618" width="180" height="24" rx="6" fill="#d0ebff" stroke="#339af0" stroke-width="1.5"/>
-        <text x="250" y="634" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1864ab">受洗池</text>
-
-        <!-- Blue Screen Right -->
-        <rect x="366" y="538" width="146" height="68" rx="6" fill="#e7f5ff" stroke="#74c0fc" stroke-width="1.2"/>
-
-        <!-- 女4 Callout -->
+        <!-- 女4 Callout - Clickable -->
         <g opacity="${hl('女4')}">
-          <rect x="44" y="450" width="176" height="44" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
-          <text x="132" y="468" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">女4｜講員休息室前接應，</text>
-          <text x="132" y="485" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">引導至後走廊</text>
-          <circle cx="152" cy="566" r="15" fill="#d93865"/>
-          <text x="152" y="571" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">女4</text>
+          <g ${linkAttr('女4')}>
+            <rect x="36" y="464" width="174" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
+            <text x="123" y="481" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女4｜講員休息室前接應，</text>
+            <text x="123" y="497" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">引導至後走廊</text>
+            <circle cx="152" cy="566" r="14.5" fill="#d93865"/>
+            <text x="152" y="571" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女4</text>
+          </g>
         </g>
 
-        <!-- Green Arrow Leftwards -->
-        <path d="M 228 514 L 154 514" fill="none" stroke="#0ca678" stroke-width="3.5" marker-end="url(#arr-teal)"/>
+        <path d="M 222 522 L 152 522" fill="none" stroke="#0ca678" stroke-width="3.2" marker-end="url(#arr-teal)"/>
 
-        <!-- 女3 Callout -->
+        <!-- 女3 Callout - Clickable -->
         <g opacity="${hl('女3')}">
-          <rect x="234" y="450" width="166" height="44" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
-          <text x="317" y="468" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">女3｜扶受洗者起來，</text>
-          <text x="317" y="485" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">引導給女4</text>
-          <circle cx="256" cy="596" r="14" fill="#d93865"/>
-          <text x="256" y="601" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女3</text>
+          <g ${linkAttr('女3')}>
+            <rect x="224" y="464" width="162" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
+            <text x="305" y="481" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女3｜扶受洗者起來，</text>
+            <text x="305" y="497" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">引導給女4</text>
+            <circle cx="256" cy="586" r="14.5" fill="#d93865"/>
+            <text x="256" y="591" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女3</text>
+          </g>
         </g>
 
-        <!-- 女1 Callout -->
+        <!-- 女1 Callout - Clickable -->
         <g opacity="${hl('女1')}">
-          <rect x="334" y="544" width="174" height="30" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
-          <text x="421" y="563" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">女1｜扶受洗者下受洗池</text>
-          <circle cx="306" cy="596" r="14" fill="#d93865"/>
-          <text x="306" y="601" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女1</text>
+          <g ${linkAttr('女1')}>
+            <rect x="348" y="546" width="174" height="28" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
+            <text x="435" y="564" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女1｜扶受洗者下受洗池</text>
+            <circle cx="342" cy="586" r="14.5" fill="#d93865"/>
+            <text x="342" y="591" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女1</text>
+          </g>
         </g>
 
-        <!-- 女2 Callout -->
+        <!-- 女2 Callout - Clickable -->
         <g opacity="${hl('女2')}">
-          <rect x="356" y="582" width="152" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
-          <text x="432" y="599" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">女2｜</text>
-          <text x="432" y="616" text-anchor="middle" font-size="12" font-weight="800" fill="#a61e4d">引導受洗者上舞台</text>
-          <circle cx="484" cy="638" r="14" fill="#d93865"/>
-          <text x="484" y="643" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女2</text>
+          <g ${linkAttr('女2')}>
+            <rect x="380" y="582" width="142" height="40" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
+            <text x="451" y="598" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女2｜</text>
+            <text x="451" y="614" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">引導受洗者上舞台</text>
+            <circle cx="496" cy="634" r="14.5" fill="#d93865"/>
+            <text x="496" y="639" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">女2</text>
+          </g>
         </g>
-
-        <!-- Front Audience Chairs Foreground -->
-        ${drawChairBlock(46, 668, 3, 9, 18, 12, 4, 6)}
-        ${drawChairBlock(292, 668, 3, 9, 18, 12, 4, 6)}
       </svg>`;
     }
 
-    // SVG 3: 弟兄招待站位圖 (Exact replica of Image 4 - Top Stage Baptism + Bottom Keep Floor Dry)
-    function buildBrotherSVG(highlightCode = null) {
+    // SVG 3: 弟兄招待站位圖 (All 男1～男8 + 女2/女4 badges & callouts are clickable hotlinks)
+    function buildBrotherSVG(highlightCode = null, interactive = true) {
       const hl = (code) => {
         if (!highlightCode) return '1';
         if (['男6', '男7', '男8'].includes(highlightCode) && code === '男678') return '1';
-        return highlightCode === code ? '1' : '0.28';
+        return highlightCode === code ? '1' : '0.24';
       };
+      const linkAttr = (code) => interactive
+        ? `class="map-hotlink" onclick="openReceptionByCode('${code}')" role="button" tabindex="0"`
+        : '';
 
       return `
-      <svg viewBox="0 0 560 760" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 560 790" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr-teal-b" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
             <path d="M 1 1.5 L 8.5 5 L 1 8.5 z" fill="#0ca678"/>
@@ -1445,127 +1685,157 @@
           </marker>
         </defs>
 
-        <rect x="0" y="0" width="560" height="760" rx="16" fill="#ffffff"/>
+        <rect x="0" y="0" width="560" height="790" rx="16" fill="var(--svg-bg)"/>
 
         <!-- ==================== TOP PANEL: 受洗中招待站位圖 ==================== -->
-        <rect x="16" y="14" width="528" height="360" rx="16" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
-        <text x="32" y="46" font-size="17" font-weight="800" fill="#1d1d1f">受洗中招待站位圖（弟兄組）</text>
+        <rect x="14" y="14" width="532" height="382" rx="16" fill="var(--svg-panel-gray)" stroke="var(--svg-panel-gray-border)" stroke-width="1.5"/>
+        <text x="28" y="44" font-size="16.5" font-weight="800" fill="var(--svg-text)">受洗中招待站位圖（弟兄組）</text>
 
-        <!-- Back Corridor 男2 Callout -->
+        <!-- Back Corridor 男2 Callout - Clickable -->
         <g opacity="${hl('男2')}">
-          <circle cx="242" cy="48" r="15" fill="#0066cc"/>
-          <text x="242" y="53" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">男2</text>
-          <rect x="266" y="26" width="246" height="30" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
-          <text x="389" y="46" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">男2｜後走廊，引導受洗者到更衣室</text>
-          <path d="M 268 66 L 310 66" fill="none" stroke="#0066cc" stroke-width="3" marker-end="url(#arr-blue-b)"/>
+          <g ${linkAttr('男2')}>
+            <circle cx="242" cy="44" r="14.5" fill="#0066cc"/>
+            <text x="242" y="49" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">男2</text>
+            <rect x="264" y="24" width="256" height="28" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
+            <text x="392" y="42" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">男2｜後走廊，引導受洗者到更衣室</text>
+          </g>
+          <path d="M 268 60 L 310 60" fill="none" stroke="#0066cc" stroke-width="2.8" marker-end="url(#arr-blue-b)"/>
         </g>
 
-        <!-- Stage Backdrop -->
-        <rect x="32" y="78" width="496" height="214" rx="12" fill="#ffffff" stroke="#ced4da" stroke-width="1.2"/>
-        <rect x="32" y="170" width="48" height="122" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-        <text x="56" y="204" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">講員</text>
-        <text x="56" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">休息</text>
-        <text x="56" y="240" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">室</text>
+        ${drawUnifiedStageFront(72)}
 
-        <!-- Baptism Pool -->
-        <rect x="160" y="254" width="180" height="24" rx="6" fill="#d0ebff" stroke="#339af0" stroke-width="1.5"/>
-        <text x="250" y="270" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1864ab">受洗池</text>
-        <rect x="366" y="174" width="146" height="68" rx="6" fill="#e7f5ff" stroke="#74c0fc" stroke-width="1.2"/>
-
-        <!-- 女4 Coordination Reference -->
-        <g opacity="0.85">
-          <rect x="44" y="90" width="172" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
-          <text x="130" y="108" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女4｜講員休息室前接應，</text>
-          <text x="130" y="124" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">引導至後走廊</text>
+        <!-- 女4 Coordination Reference - Clickable -->
+        <g opacity="0.88">
+          <g ${linkAttr('女4')}>
+            <rect x="36" y="82" width="174" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
+            <text x="123" y="99" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女4｜講員休息室前接應，</text>
+            <text x="123" y="115" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">引導至後走廊</text>
+          </g>
         </g>
 
-        <path d="M 224 152 L 152 152" fill="none" stroke="#0ca678" stroke-width="3.5" marker-end="url(#arr-teal-b)"/>
+        <path d="M 222 140 L 152 140" fill="none" stroke="#0ca678" stroke-width="3.2" marker-end="url(#arr-teal-b)"/>
 
-        <!-- 男5 Callout -->
+        <!-- 男5 Callout - Clickable -->
         <g opacity="${hl('男5')}">
-          <rect x="230" y="90" width="166" height="42" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
-          <text x="313" y="108" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">男5｜扶受洗者起來，</text>
-          <text x="313" y="124" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">引導給女4</text>
-          <circle cx="256" cy="232" r="14" fill="#0066cc"/>
-          <text x="256" y="237" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">男5</text>
+          <g ${linkAttr('男5')}>
+            <rect x="224" y="82" width="162" height="42" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
+            <text x="305" y="99" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">男5｜扶受洗者起來，</text>
+            <text x="305" y="115" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">引導給女4</text>
+            <circle cx="256" cy="204" r="14.5" fill="#0066cc"/>
+            <text x="256" y="209" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">男5</text>
+          </g>
         </g>
 
-        <!-- 男1 Callout -->
+        <!-- 男1 Callout - Clickable -->
         <g opacity="${hl('男1')}">
-          <rect x="334" y="178" width="174" height="30" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
-          <text x="421" y="197" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">男1｜扶受洗者下受洗池</text>
-          <circle cx="306" cy="232" r="14" fill="#0066cc"/>
-          <text x="306" y="237" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">男1</text>
+          <g ${linkAttr('男1')}>
+            <rect x="348" y="164" width="174" height="28" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
+            <text x="435" y="182" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">男1｜扶受洗者下受洗池</text>
+            <circle cx="342" cy="204" r="14.5" fill="#0066cc"/>
+            <text x="342" y="209" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">男1</text>
+          </g>
         </g>
 
-        <!-- 女2 Coordination Reference -->
-        <g opacity="0.85">
-          <rect x="356" y="216" width="152" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
-          <text x="432" y="233" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女2｜</text>
-          <text x="432" y="249" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">引導受洗者上舞台</text>
+        <!-- 女2 Coordination Reference - Clickable -->
+        <g opacity="0.88">
+          <g ${linkAttr('女2')}>
+            <rect x="380" y="200" width="142" height="40" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
+            <text x="451" y="216" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">女2｜</text>
+            <text x="451" y="232" text-anchor="middle" font-size="11.5" font-weight="800" fill="#a61e4d">引導受洗者上舞台</text>
+          </g>
         </g>
-
-        <!-- Front Chairs -->
-        ${drawChairBlock(46, 304, 3, 9, 18, 12, 4, 6)}
-        ${drawChairBlock(292, 304, 3, 9, 18, 12, 4, 6)}
 
         <!-- ==================== BOTTOM PANEL: 保持地板乾燥 ==================== -->
-        <rect x="16" y="390" width="528" height="354" rx="16" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
-        <text x="32" y="424" font-size="17" font-weight="800" fill="#1d1d1f">保持地板乾燥（拖地分工）</text>
+        <rect x="14" y="410" width="532" height="366" rx="16" fill="var(--svg-panel-gray)" stroke="var(--svg-panel-gray-border)" stroke-width="1.5"/>
+        <text x="28" y="440" font-size="16.5" font-weight="800" fill="var(--svg-text)">保持地板乾燥（拖地分工）</text>
 
-        <!-- Back Corridor 男6、7、8 Callout -->
+        <!-- Back Corridor 男6、7、8 Callout (Each badge clickable directly!) -->
         <g opacity="${hl('男678')}">
-          <circle cx="232" cy="432" r="14" fill="#0066cc"/>
-          <text x="232" y="437" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">男6</text>
-          <circle cx="264" cy="432" r="14" fill="#0066cc"/>
-          <text x="264" y="437" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">男7</text>
-          <circle cx="296" cy="432" r="14" fill="#0066cc"/>
-          <text x="296" y="437" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">男8</text>
+          <g ${linkAttr('男6')}>
+            <circle cx="226" cy="436" r="14" fill="#0066cc"/>
+            <text x="226" y="441" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">男6</text>
+          </g>
+          <g ${linkAttr('男7')}>
+            <circle cx="256" cy="436" r="14" fill="#0066cc"/>
+            <text x="256" y="441" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">男7</text>
+          </g>
+          <g ${linkAttr('男8')}>
+            <circle cx="286" cy="436" r="14" fill="#0066cc"/>
+            <text x="286" y="441" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">男8</text>
+          </g>
 
-          <rect x="318" y="404" width="210" height="44" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
-          <text x="423" y="422" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">男6、7、8｜後走廊，確認地板乾燥</text>
-          <text x="423" y="439" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">及引導受洗者至更衣室</text>
-          <path d="M 322 456 L 372 456" fill="none" stroke="#0066cc" stroke-width="3" marker-end="url(#arr-blue-b)"/>
+          <g ${linkAttr('男6')}>
+            <rect x="308" y="416" width="224" height="40" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
+            <text x="420" y="432" text-anchor="middle" font-size="11" font-weight="800" fill="#1864ab">男6、7、8｜後走廊，確認地板乾燥</text>
+            <text x="420" y="448" text-anchor="middle" font-size="11" font-weight="800" fill="#1864ab">及引導受洗者至更衣室</text>
+          </g>
+          <path d="M 314 462 L 364 462" fill="none" stroke="#0066cc" stroke-width="2.8" marker-end="url(#arr-blue-b)"/>
         </g>
 
-        <!-- Stage Mopping Backdrop -->
-        <rect x="32" y="468" width="496" height="190" rx="12" fill="#ffffff" stroke="#ced4da" stroke-width="1.2"/>
-        <rect x="32" y="546" width="48" height="112" fill="#e9ecef" stroke="#adb5bd" stroke-width="1"/>
-        <text x="56" y="576" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">講員</text>
-        <text x="56" y="594" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">休息</text>
-        <text x="56" y="612" text-anchor="middle" font-size="12" font-weight="700" fill="#1d1d1f">室</text>
+        ${drawUnifiedStageFront(468)}
 
-        <!-- Cross Symbol on Stage -->
-        <line x1="274" y1="538" x2="274" y2="574" stroke="#862e08" stroke-width="4" stroke-linecap="round"/>
-        <line x1="262" y1="550" x2="286" y2="550" stroke="#862e08" stroke-width="4" stroke-linecap="round"/>
-
-        <!-- Blue Screen Right -->
-        <rect x="366" y="550" width="146" height="62" rx="6" fill="#e7f5ff" stroke="#74c0fc" stroke-width="1.2"/>
-
-        <!-- 男4 Callout -->
+        <!-- 男4 Callout - Clickable -->
         <g opacity="${hl('男4')}">
-          <rect x="44" y="482" width="166" height="30" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
-          <text x="127" y="501" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">男4｜鋼琴後方拖地</text>
-          <circle cx="114" cy="590" r="15" fill="#0066cc"/>
-          <text x="114" y="595" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">男4</text>
+          <g ${linkAttr('男4')}>
+            <rect x="38" y="482" width="166" height="28" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
+            <text x="121" y="500" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">男4｜鋼琴後方拖地</text>
+            <circle cx="112" cy="576" r="14.5" fill="#0066cc"/>
+            <text x="112" y="581" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">男4</text>
+          </g>
         </g>
 
-        <!-- 男3 Callout -->
+        <!-- 男3 Callout - Clickable -->
         <g opacity="${hl('男3')}">
-          <rect x="222" y="482" width="176" height="30" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
-          <text x="310" y="501" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">男3｜舞台靠左側拖地</text>
-          <circle cx="176" cy="602" r="15" fill="#0066cc"/>
-          <text x="176" y="607" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">男3</text>
+          <g ${linkAttr('男3')}>
+            <rect x="216" y="482" width="176" height="28" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
+            <text x="304" y="500" text-anchor="middle" font-size="11.5" font-weight="800" fill="#1864ab">男3｜舞台靠左側拖地</text>
+            <circle cx="174" cy="596" r="14.5" fill="#0066cc"/>
+            <text x="174" y="601" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">男3</text>
+          </g>
         </g>
-
-        <!-- Front Chairs -->
-        ${drawChairBlock(46, 668, 3, 9, 18, 12, 4, 6)}
-        ${drawChairBlock(292, 668, 3, 9, 18, 12, 4, 6)}
       </svg>`;
     }
 
     // =========================================================================
-    // 3. UI RENDERING & INTERACTIONS
+    // 4. THEME SWITCHER (LIGHT / DARK)
+    // =========================================================================
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      const iconEl = document.getElementById("themeIcon");
+      const textEl = document.getElementById("themeText");
+      if (theme === "dark") {
+        iconEl.textContent = "☀️";
+        textEl.textContent = "淺色模式";
+      } else {
+        iconEl.textContent = "🌙";
+        textEl.textContent = "深色模式";
+      }
+      try {
+        localStorage.setItem("clc-baptism-theme", theme);
+      } catch (e) {}
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      applyTheme(current === "light" ? "dark" : "light");
+    }
+
+    function initTheme() {
+      let saved = null;
+      try {
+        saved = localStorage.getItem("clc-baptism-theme");
+      } catch (e) {}
+      if (saved === "dark" || saved === "light") {
+        applyTheme(saved);
+      } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        applyTheme("dark");
+      } else {
+        applyTheme("light");
+      }
+    }
+
+    // =========================================================================
+    // 5. UI RENDERING & INTERACTIONS
     // =========================================================================
     function createWorkerCard(worker, type) {
       const card = document.createElement("button");
@@ -1604,38 +1874,37 @@
         }
       });
 
-      // Render crisp vector diagrams
-      document.getElementById("main-communion-svg-container").innerHTML = buildCommunionSVG('all');
-      document.getElementById("main-sister-svg-container").innerHTML = buildSisterSVG(null);
-      document.getElementById("main-brother-svg-container").innerHTML = buildBrotherSVG(null);
+      document.getElementById("main-communion-svg-container").innerHTML = buildCommunionSVG('all', true);
+      document.getElementById("main-sister-svg-container").innerHTML = buildSisterSVG(null, true);
+      document.getElementById("main-brother-svg-container").innerHTML = buildBrotherSVG(null, true);
     }
 
     function highlightCommunionRoute(num, btnEl) {
       document.querySelectorAll("#communion-map-filter .map-chip").forEach(b => b.classList.remove("active"));
       if (btnEl) btnEl.classList.add("active");
-      document.getElementById("main-communion-svg-container").innerHTML = buildCommunionSVG(num);
+      document.getElementById("main-communion-svg-container").innerHTML = buildCommunionSVG(num, true);
     }
 
     function switchTab(tabName) {
-      const tabCommunion = document.getElementById("tab-communion");
       const tabReception = document.getElementById("tab-reception");
-      const panelCommunion = document.getElementById("panel-communion");
+      const tabCommunion = document.getElementById("tab-communion");
       const panelReception = document.getElementById("panel-reception");
+      const panelCommunion = document.getElementById("panel-communion");
 
-      if (tabName === "communion") {
-        tabCommunion.classList.add("active");
-        tabCommunion.setAttribute("aria-selected", "true");
-        tabReception.classList.remove("active");
-        tabReception.setAttribute("aria-selected", "false");
-        panelCommunion.classList.add("active");
-        panelReception.classList.remove("active");
-      } else {
+      if (tabName === "reception") {
         tabReception.classList.add("active");
         tabReception.setAttribute("aria-selected", "true");
         tabCommunion.classList.remove("active");
         tabCommunion.setAttribute("aria-selected", "false");
         panelReception.classList.add("active");
         panelCommunion.classList.remove("active");
+      } else {
+        tabCommunion.classList.add("active");
+        tabCommunion.setAttribute("aria-selected", "true");
+        tabReception.classList.remove("active");
+        tabReception.setAttribute("aria-selected", "false");
+        panelCommunion.classList.add("active");
+        panelReception.classList.remove("active");
       }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -1692,15 +1961,32 @@
           </div>
           <div class="modal-svg-box">
             <div class="modal-svg-caption">🗺️ 您的專屬站位與動線高亮（${worker.position}）</div>
-            <div class="modal-svg-inner">${buildCommunionSVG(worker.num)}</div>
+            <div class="modal-svg-inner">${buildCommunionSVG(worker.num, false)}</div>
           </div>
         `;
       } else {
         const mapSvg = worker.category === "sister"
-          ? buildSisterSVG(worker.code)
-          : buildBrotherSVG(worker.code);
+          ? buildSisterSVG(worker.code, false)
+          : buildBrotherSVG(worker.code, false);
+
+        // Quick switcher if viewing 男6, 男7, or 男8 so user can also toggle between the 3 corridor workers
+        let multiPickerHtml = "";
+        if (["男6", "男7", "男8"].includes(worker.code)) {
+          const corridorGroup = receptionWorkers.filter(w => ["男6", "男7", "男8"].includes(w.code));
+          multiPickerHtml = `
+            <div class="multi-worker-tabs">
+              ${corridorGroup.map(w => `
+                <button type="button" class="multi-worker-btn ${w.code === worker.code ? 'active' : ''}"
+                  onclick="openReceptionByCode('${w.code}')">
+                  ${w.code} ${w.name}
+                </button>
+              `).join('')}
+            </div>
+          `;
+        }
 
         bodyEl.innerHTML = `
+          ${multiPickerHtml}
           <div class="detail-block">
             <div class="detail-label">1️⃣ 第一階段 · 報到 / 場地預備</div>
             <div class="detail-value">${worker.stage1}</div>
@@ -1736,6 +2022,7 @@
       if (e.key === "Escape") closeModal();
     });
 
+    initTheme();
     renderAll();
   </script>
 </body>
