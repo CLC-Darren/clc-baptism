@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>CLC 11/14(六) 受洗禮拜服事指南</title>
+  <title>11 月 14（六）受洗禮拜服事指南</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="受洗服事指南" />
+  <meta name="theme-color" content="#0071e3" />
+  <link id="favicon-link" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%230071e3'/%3E%3Cstop offset='100%25' stop-color='%2300a2ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='180' height='180' rx='40' fill='url(%23g)'/%3E%3Cpath d='M90 36v74M63 64h54' stroke='%23ffffff' stroke-width='13' stroke-linecap='round'/%3E%3Cpath d='M42 126c16-10 32-10 48 0s32 10 48 0' fill='none' stroke='%23ffffff' stroke-width='10' stroke-linecap='round' opacity='0.95'/%3E%3Cpath d='M56 146c12-7 22-7 34 0s22 7 34 0' fill='none' stroke='%23ffffff' stroke-width='8' stroke-linecap='round' opacity='0.75'/%3E%3C/svg%3E" />
+  <link id="apple-touch-icon-link" rel="apple-touch-icon" sizes="180x180" href="" />
   <style>
     :root {
       --bg: #f5f5f7;
@@ -23,31 +29,15 @@
       --olive-soft: rgba(108, 122, 30, 0.13);
       --red-team: #c92a2a;
       --red-team-soft: rgba(201, 42, 42, 0.11);
-      --border: rgba(0, 0, 0, 0.08);
-      --header-bg: rgba(245, 245, 247, 0.84);
+      --border: rgba(0, 0, 0, 0.09);
+      --header-bg: rgba(245, 245, 247, 0.86);
       --seg-bg: rgba(118, 118, 128, 0.12);
       --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.08);
-      --modal-border: rgba(0, 0, 0, 0.18);
-      --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.08);
+      --modal-border: #0071e3;
+      --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(0, 113, 227, 0.25);
       --radius-lg: 22px;
       --radius-md: 16px;
-
-      /* SVG Floor Plan Tokens: ALWAYS LIGHT / WHITE even in Dark Mode */
-      --svg-bg: #ffffff;
-      --svg-panel-pink: #fff9fb;
-      --svg-panel-pink-border: #ffdeeb;
-      --svg-panel-gray: #f8f9fa;
-      --svg-panel-gray-border: #dee2e6;
-      --svg-room-bg: #f1f3f5;
-      --svg-room-border: #868e96;
-      --svg-pillar: #adb5bd;
-      --svg-chair-fill: #ffffff;
-      --svg-chair-stroke: #cbd2d9;
-      --svg-text: #1d1d1f;
-      --svg-subtext: #495057;
-      --svg-arrow: #1d1d1f;
-      --svg-label-bg: rgba(255, 255, 255, 0.94);
     }
 
     [data-theme="dark"] {
@@ -69,34 +59,18 @@
       --red-team: #ff453a;
       --red-team-soft: rgba(255, 69, 58, 0.18);
       --border: rgba(255, 255, 255, 0.14);
-      --header-bg: rgba(28, 28, 30, 0.84);
+      --header-bg: rgba(28, 28, 30, 0.86);
       --seg-bg: rgba(118, 118, 128, 0.26);
       --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.35);
       --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.5);
-      --modal-border: rgba(255, 255, 255, 0.34);
-      --shadow-modal: 0 24px 64px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.22);
-
-      /* SVG Floor Plan Tokens remain WHITE in dark mode as requested */
-      --svg-bg: #ffffff;
-      --svg-panel-pink: #fff9fb;
-      --svg-panel-pink-border: #ffdeeb;
-      --svg-panel-gray: #f8f9fa;
-      --svg-panel-gray-border: #dee2e6;
-      --svg-room-bg: #f1f3f5;
-      --svg-room-border: #868e96;
-      --svg-pillar: #adb5bd;
-      --svg-chair-fill: #ffffff;
-      --svg-chair-stroke: #cbd2d9;
-      --svg-text: #1d1d1f;
-      --svg-subtext: #495057;
-      --svg-arrow: #1d1d1f;
-      --svg-label-bg: rgba(255, 255, 255, 0.94);
+      --modal-border: #3898ff;
+      --shadow-modal: 0 24px 70px rgba(0, 0, 0, 0.88), 0 0 0 1px rgba(56, 152, 255, 0.45);
     }
 
     /* Hide all scrollbars globally while keeping smooth scrolling */
     html, body, .svg-frame, .modal-card, .map-selector, .filter-pills {
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE/Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
     html::-webkit-scrollbar,
     body::-webkit-scrollbar,
@@ -104,7 +78,7 @@
     .modal-card::-webkit-scrollbar,
     .map-selector::-webkit-scrollbar,
     .filter-pills::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none;
       width: 0;
       height: 0;
     }
@@ -117,9 +91,10 @@
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      font-size: 16.5px;
       background-color: var(--bg);
       color: var(--text-primary);
-      line-height: 1.5;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.25s ease, color 0.25s ease;
       overflow-x: hidden;
@@ -140,7 +115,7 @@
     .header-inner {
       max-width: 1020px;
       margin: 0 auto;
-      padding: 14px 20px 14px;
+      padding: 14px 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -164,23 +139,22 @@
       .title-row {
         text-align: center;
         flex: 1;
-        padding-left: 88px;
+        padding-left: 96px;
       }
     }
 
     .eyebrow {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
       color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 1px;
+      margin-bottom: 2px;
     }
 
     h1 {
       margin: 0;
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 24px;
+      font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-primary);
     }
@@ -193,9 +167,9 @@
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--text-primary);
-      padding: 7px 13px;
+      padding: 8px 14px;
       border-radius: 999px;
-      font-size: 12.5px;
+      font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
       box-shadow: var(--shadow-sm);
@@ -211,20 +185,20 @@
     .segmented-control {
       display: inline-flex;
       background: var(--seg-bg);
-      padding: 3px;
+      padding: 4px;
       border-radius: 999px;
       width: 100%;
-      max-width: 440px;
+      max-width: 460px;
     }
 
     .tab-btn {
       flex: 1;
       border: none;
       background: transparent;
-      padding: 9px 16px;
+      padding: 10px 16px;
       border-radius: 999px;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 15px;
+      font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -239,7 +213,7 @@
     main {
       max-width: 1020px;
       margin: 0 auto;
-      padding: 22px 20px 80px;
+      padding: 20px 18px 80px;
     }
 
     .tab-panel {
@@ -274,11 +248,11 @@
 
     .search-box input {
       width: 100%;
-      padding: 11px 16px 11px 40px;
+      padding: 12px 16px 12px 42px;
       border-radius: 14px;
       border: 1px solid var(--border);
       background: var(--surface);
-      font-size: 15px;
+      font-size: 16px;
       color: var(--text-primary);
       box-shadow: var(--shadow-sm);
       outline: none;
@@ -296,15 +270,15 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-tertiary);
-      font-size: 15px;
+      font-size: 16px;
       pointer-events: none;
     }
 
     .hint-badge {
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--text-secondary);
       background: var(--surface);
-      padding: 8px 14px;
+      padding: 9px 14px;
       border-radius: 999px;
       border: 1px solid var(--border);
     }
@@ -323,27 +297,27 @@
     }
 
     .callout-icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
       background: var(--accent-soft);
       color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 19px;
+      font-size: 20px;
       flex-shrink: 0;
     }
 
     .callout-text strong {
       display: block;
-      font-size: 15px;
+      font-size: 16.5px;
       color: var(--text-primary);
       margin-bottom: 2px;
     }
 
     .callout-text span {
-      font-size: 13.5px;
+      font-size: 14.5px;
       color: var(--text-secondary);
     }
 
@@ -358,28 +332,28 @@
     }
 
     .section-title {
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 700;
       letter-spacing: -0.015em;
       margin: 0;
     }
 
     .section-sub {
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--text-secondary);
     }
 
     /* Worker Roster Grid */
     .roster-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
       gap: 12px;
     }
 
     .worker-card {
       background: var(--surface);
       border-radius: var(--radius-md);
-      padding: 15px;
+      padding: 16px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow-sm);
       cursor: pointer;
@@ -401,12 +375,20 @@
       transform: scale(0.98);
     }
 
+    .card-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
     .pos-pill {
       display: inline-flex;
       align-items: center;
       padding: 4px 10px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
       width: fit-content;
     }
@@ -416,25 +398,34 @@
     .pos-pill.olive { background: var(--olive-soft); color: var(--olive); }
     .pos-pill.pink { background: var(--sister-soft); color: var(--sister); }
 
+    .dual-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
     .worker-name {
-      font-size: 19px;
+      font-size: 21px;
       font-weight: 700;
       color: var(--text-primary);
       letter-spacing: -0.01em;
     }
 
     .worker-preview {
-      font-size: 12.5px;
+      font-size: 14px;
       color: var(--text-secondary);
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .card-action {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--accent);
       display: flex;
@@ -463,13 +454,13 @@
     }
 
     .diagram-title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 700;
       margin: 0;
     }
 
     .diagram-desc {
-      font-size: 12.5px;
+      font-size: 13.5px;
       color: var(--text-secondary);
       margin: 2px 0 0;
     }
@@ -520,9 +511,9 @@
       border: 1px solid var(--border);
       background: var(--surface-subtle);
       color: var(--text-secondary);
-      padding: 5px 11px;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
@@ -546,9 +537,9 @@
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--text-secondary);
-      padding: 7px 14px;
+      padding: 8px 15px;
       border-radius: 999px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
@@ -572,18 +563,18 @@
       }
     }
 
-    /* ==================== POP-UP MODAL (Compact on Mobile + Distinct Border) ==================== */
+    /* ==================== LARGE NEAR-FULLSCREEN POP-UP MODAL WITH CLEAR BORDER ==================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 18px 16px;
+      padding: 10px;
       opacity: 0;
       transition: opacity 0.22s ease;
     }
@@ -595,26 +586,31 @@
 
     .modal-card {
       background: var(--surface);
-      width: 92%;
-      max-width: 440px;
-      max-height: 78vh;
+      width: calc(100vw - 20px);
+      max-width: 680px;
+      height: calc(100vh - 24px);
+      max-height: 94vh;
       overflow-y: auto;
-      border-radius: 22px;
-      padding: 16px 18px 20px;
-      border: 2px solid var(--modal-border);
+      border-radius: 24px;
+      padding: 18px 18px 26px;
+      border: 2.5px solid var(--modal-border);
       box-shadow: var(--shadow-modal);
-      transform: scale(0.94) translateY(10px);
+      transform: scale(0.95) translateY(10px);
       transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     @media (min-width: 640px) {
+      .modal-backdrop {
+        padding: 20px;
+      }
       .modal-card {
-        width: 100%;
-        max-width: 500px;
-        max-height: 84vh;
-        border-radius: 24px;
-        padding: 20px 24px 24px;
+        width: 94vw;
+        height: auto;
+        max-height: 90vh;
+        padding: 24px 26px 28px;
       }
     }
 
@@ -627,19 +623,56 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 12px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .modal-header-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .modal-badge-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Cross-role Switch Pill Button (for dual-role workers) */
+    .cross-role-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1.5px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cross-role-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .cross-role-btn:active {
+      transform: scale(0.96);
     }
 
     .modal-close {
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       border-radius: 999px;
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       background: var(--seg-bg);
       color: var(--text-primary);
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -649,67 +682,67 @@
     }
 
     .modal-title {
-      margin: 5px 0 1px;
-      font-size: 22px;
-      font-weight: 700;
+      margin: 7px 0 2px;
+      font-size: 26px;
+      font-weight: 800;
       letter-spacing: -0.02em;
     }
 
     .modal-subtitle {
-      font-size: 12.5px;
+      font-size: 14px;
       color: var(--text-secondary);
     }
 
     .detail-block {
       background: var(--bg);
-      border-radius: 14px;
-      padding: 11px 13px;
-      margin-bottom: 10px;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
       border: 1px solid var(--border);
     }
 
     .detail-label {
-      font-size: 11.5px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--text-secondary);
       letter-spacing: 0.03em;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .detail-value {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 500;
       color: var(--text-primary);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .detail-list {
       margin: 0;
-      padding-left: 16px;
-      font-size: 14px;
+      padding-left: 18px;
+      font-size: 16px;
       color: var(--text-primary);
     }
 
     .detail-list li {
-      margin-bottom: 5px;
-      line-height: 1.45;
+      margin-bottom: 6px;
+      line-height: 1.5;
     }
 
     /* Multi-worker picker inside Modal (e.g., when clicking 男6、7、8 group marker) */
     .multi-worker-tabs {
       display: flex;
       gap: 6px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .multi-worker-btn {
       flex: 1;
-      padding: 7px 8px;
-      border-radius: 10px;
+      padding: 8px 8px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text-primary);
-      font-size: 12.5px;
+      font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
@@ -723,23 +756,23 @@
 
     .modal-svg-box {
       margin-top: 10px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
       background: #ffffff;
       overflow: hidden;
     }
 
     .modal-svg-caption {
-      font-size: 11.5px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--text-secondary);
-      padding: 7px 11px;
+      padding: 8px 12px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
     }
 
     .modal-svg-inner {
-      padding: 8px;
+      padding: 10px;
       background: #ffffff;
     }
 
@@ -747,7 +780,6 @@
       width: 100%;
       height: auto;
       display: block;
-      max-height: 290px;
     }
 
     /* SVG Route Dimming when highlighting single worker */
@@ -764,7 +796,7 @@
     footer {
       text-align: center;
       padding: 20px 16px 40px;
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-tertiary);
     }
   </style>
@@ -775,8 +807,8 @@
     <div class="header-inner">
       <div class="top-bar-row">
         <div class="title-row">
-          <div class="eyebrow">Baptism Service Guide</div>
-          <h1>CLC 11/14(六) 受洗禮拜服事指南</h1>
+          <div class="eyebrow">11 月 14（六）</div>
+          <h1>受洗禮拜服事指南</h1>
         </div>
         <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="切換深色或淺色模式">
           <span id="themeIcon">🌙</span>
@@ -803,7 +835,7 @@
         <span class="search-icon">🔍</span>
         <input type="search" id="searchInput" placeholder="輸入姓名或位置快速尋找（例如：招待A、位置 1、楊艾倫）" oninput="handleSearch(this.value)" />
       </div>
-      <div class="hint-badge">👆 點擊場地圖上的站位標註或下方卡片，直接開啟服事詳情</div>
+      <div class="hint-badge">👆 點擊場地圖站位標註或下方卡片查看詳情</div>
     </div>
 
     <!-- ==================== PAGE 1 (DEFAULT): 受洗招待服事同工 ==================== -->
@@ -858,7 +890,7 @@
 
       <div id="sister-section">
         <div class="section-header">
-          <h3 class="section-title" style="font-size: 16.5px;">姊妹招待（招待 A ～ D）</h3>
+          <h3 class="section-title" style="font-size: 17.5px;">姊妹招待（招待 A ～ D）</h3>
           <span class="section-sub">報到引導 &amp; 受洗池協助</span>
         </div>
         <div class="roster-grid" id="sister-grid"></div>
@@ -866,7 +898,7 @@
 
       <div id="brother-section">
         <div class="section-header">
-          <h3 class="section-title" style="font-size: 16.5px;">弟兄招待（招待 1 ～ 8）</h3>
+          <h3 class="section-title" style="font-size: 17.5px;">弟兄招待（招待 1 ～ 8）</h3>
           <span class="section-sub">場地預備、受洗池協助 &amp; 講台/走廊拖地</span>
         </div>
         <div class="roster-grid" id="brother-grid"></div>
@@ -923,15 +955,15 @@
   </main>
 
   <footer>
-    CLC 11/14(六) 受洗禮拜服事指南 · 場地圖標註互動超連結 &amp; 深淺色雙模式版
+    11 月 14（六）受洗禮拜服事指南 · 場地圖標註互動超連結 &amp; 雙服事一鍵切換版
   </footer>
 
   <!-- ==================== WORKER DETAIL POP-UP MODAL ==================== -->
   <div class="modal-backdrop" id="detailModal" onclick="closeModalOnBackdrop(event)" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalWorkerName">
       <div class="modal-top">
-        <div>
-          <span class="pos-pill" id="modalBadge">位置</span>
+        <div class="modal-header-main">
+          <div class="modal-badge-bar" id="modalBadgeBar"></div>
           <h3 class="modal-title" id="modalWorkerName">同工姓名</h3>
           <div class="modal-subtitle" id="modalRoleSubtitle">服事組別</div>
         </div>
@@ -944,7 +976,7 @@
 
   <script>
     // =========================================================================
-    // 1. EXACT DATA (Updated Reception Notice: 8:30 集合, 9:20 就定位)
+    // 1. EXACT DATA (Dual-role workers: 邵基明, 蕭來峯, 李華薇, 楊艾倫)
     // =========================================================================
     const communionWorkers = [
       {
@@ -1164,8 +1196,18 @@
     ];
 
     // =========================================================================
-    // 2. DIRECT HOTLINK HANDLERS FROM FLOOR PLAN MARKERS
+    // 2. DIRECT HOTLINK & CROSS-ROLE LOOKUP HELPERS
     // =========================================================================
+    function findDualRole(workerName, currentType) {
+      if (currentType === "reception") {
+        const match = communionWorkers.find(w => w.name === workerName);
+        return match ? { worker: match, type: "communion" } : null;
+      } else {
+        const match = receptionWorkers.find(w => w.name === workerName);
+        return match ? { worker: match, type: "reception" } : null;
+      }
+    }
+
     function openCommunionByNum(numStr) {
       const worker = communionWorkers.find(w => w.num === String(numStr));
       if (worker) {
@@ -1198,35 +1240,27 @@
 
     function drawUnifiedStageFront(yTop) {
       return `
-        <!-- Stage & Sanctuary Front Frame -->
         <rect x="28" y="${yTop}" width="504" height="196" rx="12" fill="#ffffff" stroke="#868e96" stroke-width="1.2"/>
-
-        <!-- Stage Back Wall & Floor Separation -->
         <line x1="76" y1="${yTop + 124}" x2="532" y2="${yTop + 124}" stroke="#868e96" stroke-width="1" stroke-dasharray="4,3"/>
 
-        <!-- Left Speaker Lounge (講員休息室) -->
         <rect x="28" y="${yTop + 78}" width="48" height="118" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
         <text x="52" y="${yTop + 114}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d1d1f">講員</text>
         <text x="52" y="${yTop + 131}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d1d1f">休息</text>
         <text x="52" y="${yTop + 148}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d1d1f">室</text>
 
-        <!-- Keyboard / Piano on Left Side of Stage -->
         <rect x="92" y="${yTop + 116}" width="38" height="14" rx="3" fill="#adb5bd"/>
         <line x1="100" y1="${yTop + 130}" x2="100" y2="${yTop + 144}" stroke="#495057" stroke-width="2"/>
         <line x1="122" y1="${yTop + 130}" x2="122" y2="${yTop + 144}" stroke="#495057" stroke-width="2"/>
 
-        <!-- Baptism Pool: EXACTLY CENTERED on the Stage -->
         <rect x="214" y="${yTop + 144}" width="180" height="26" rx="7" fill="#d0ebff" stroke="#339af0" stroke-width="1.6"/>
         <text x="304" y="${yTop + 161}" text-anchor="middle" font-size="12" font-weight="800" fill="#1864ab">受洗池（正中央）</text>
 
-        <!-- Cross & Right Side Screen: Positioned on the RIGHT side of the stage -->
         <rect x="394" y="${yTop + 82}" width="124" height="54" rx="6" fill="rgba(51, 154, 240, 0.1)" stroke="#74c0fc" stroke-width="1.1"/>
         <g transform="translate(414, ${yTop + 72})">
           <line x1="0" y1="0" x2="0" y2="38" stroke="#c92a2a" stroke-width="4" stroke-linecap="round"/>
           <line x1="-11" y1="12" x2="11" y2="12" stroke="#c92a2a" stroke-width="4" stroke-linecap="round"/>
         </g>
 
-        <!-- Front Audience Seating (Aligned with A:4 cols, B:2 cols, C:6 cols, D:3 cols) -->
         ${drawChairBlock(42, yTop + 206, 3, 4, 15, 10, 3, 5)}
         ${drawChairBlock(122, yTop + 206, 3, 2, 15, 10, 3, 5)}
         ${drawChairBlock(172, yTop + 206, 3, 6, 15, 10, 3, 5)}
@@ -1235,7 +1269,6 @@
       `;
     }
 
-    // SVG 1: 晚崇聖餐位置與動線圖
     function buildCommunionSVG(highlightNum = null, interactive = true) {
       const dimClass = highlightNum && highlightNum !== 'all' ? 'dimmed' : '';
       const hl = (n) => (highlightNum === String(n) ? 'highlighted' : '');
@@ -1256,7 +1289,6 @@
 
         <rect x="0" y="0" width="680" height="1120" rx="16" fill="#ffffff"/>
 
-        <!-- Top Banner Reminder -->
         <rect x="24" y="18" width="632" height="38" rx="10" fill="#fff5f5" stroke="#ffc9c9" stroke-width="1"/>
         <text x="340" y="42" text-anchor="middle" font-size="15.5" font-weight="700" fill="#e03131">
           受洗禮拜聖餐，最重要就是受洗的人都有拿到聖餐就好！
@@ -1265,17 +1297,14 @@
           【受洗禮拜聖餐 8 人 — 320 份】晚崇聖餐位置（點擊編號查看詳情）
         </text>
 
-        <!-- Pastor -->
         <circle cx="268" cy="108" r="10" fill="#1d1d1f"/>
         <path d="M251,134 C251,123 285,123 285,134 Z" fill="#1d1d1f"/>
         <text x="296" y="126" font-size="14" font-weight="700" fill="#1d1d1f">牧師</text>
 
-        <!-- Communion Table -->
         <rect x="206" y="142" width="124" height="44" rx="8" fill="#f1f3f5" stroke="#868e96" stroke-width="1.5"/>
         <circle cx="242" cy="164" r="14" fill="#ffffff" stroke="#495057" stroke-width="1.5"/>
         <circle cx="294" cy="164" r="14" fill="#ffffff" stroke="#495057" stroke-width="1.5"/>
 
-        <!-- Left Red Group: 8, 7, 6 -->
         <g class="route-group ${hl(8)}">
           <g ${linkAttr(8)}>
             <circle cx="66" cy="184" r="19" fill="#c92a2a"/>
@@ -1296,7 +1325,6 @@
           </g>
         </g>
 
-        <!-- Center Front: 5 & 4 -->
         <g class="route-group ${hl(5)}">
           <g ${linkAttr(5)}>
             <circle cx="242" cy="212" r="19" fill="#c92a2a"/>
@@ -1312,7 +1340,6 @@
           </g>
         </g>
 
-        <!-- Right Blue Group: 3, 2, 1 -->
         <g class="route-group ${hl(3)}">
           <g ${linkAttr(3)}>
             <circle cx="378" cy="184" r="19" fill="#0066cc"/>
@@ -1340,7 +1367,6 @@
           晚崇聖餐動線
         </text>
 
-        <!-- Speaker Lounge & Stage -->
         <rect x="36" y="318" width="96" height="58" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1.2"/>
         <text x="84" y="343" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">講員</text>
         <text x="84" y="361" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">休息室</text>
@@ -1348,10 +1374,8 @@
         <rect x="132" y="318" width="290" height="58" rx="6" fill="#f8f9fa" stroke="#868e96" stroke-width="1.2"/>
         <text x="277" y="352" text-anchor="middle" font-size="15" font-weight="700" fill="#1d1d1f">舞台</text>
 
-        <!-- Diagonal Left Wing Chairs -->
         ${drawChairBlock(62, 378, 6, 4, 15, 7, 3, 6, 30)}
 
-        <!-- C1 Section (38位) -->
         <rect x="172" y="394" width="32" height="54" rx="4" fill="#adb5bd"/>
         <rect x="332" y="394" width="32" height="54" rx="4" fill="#adb5bd"/>
         ${drawChairBlock(212, 396, 4, 6, 16, 8, 3, 5)}
@@ -1359,42 +1383,34 @@
         <text x="268" y="424" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">C1區</text>
         <text x="268" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">38位</text>
 
-        <!-- Front Right Wing Chairs -->
         ${drawChairBlock(380, 396, 4, 2, 16, 8, 3, 5)}
 
-        <!-- A區 (71位) -->
         ${drawChairBlock(42, 466, 9, 4, 16, 9, 3, 6)}
         <rect x="66" y="476" width="52" height="32" rx="6" fill="rgba(255, 255, 255, 0.94)"/>
         <text x="92" y="490" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">A區</text>
         <text x="92" y="504" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">71位</text>
 
-        <!-- B區 (28位) -->
         ${drawChairBlock(154, 492, 7, 2, 16, 9, 3, 6)}
         <rect x="150" y="532" width="46" height="32" rx="6" fill="rgba(255, 255, 255, 0.94)"/>
         <text x="173" y="546" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">B區</text>
         <text x="173" y="560" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">28位</text>
 
-        <!-- C2區 (63位) -->
         ${drawChairBlock(212, 492, 7, 6, 16, 9, 3, 6)}
         <rect x="242" y="522" width="52" height="32" rx="6" fill="rgba(255, 255, 255, 0.94)"/>
         <text x="268" y="536" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">C2區</text>
         <text x="268" y="550" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">63位</text>
 
-        <!-- D區 (30位) -->
         ${drawChairBlock(346, 492, 6, 3, 16, 9, 3, 6)}
         <rect x="348" y="516" width="50" height="32" rx="6" fill="rgba(255, 255, 255, 0.94)"/>
         <text x="373" y="530" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">D區</text>
         <text x="373" y="544" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">30位</text>
 
-        <!-- 大親子室 -->
         <rect x="466" y="454" width="44" height="106" rx="8" fill="#f8f9fa" stroke="#868e96" stroke-width="1.2"/>
         <text x="488" y="484" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f" writing-mode="tb">大親子室</text>
 
-        <!-- Mid-Hall Return Queue Box -->
         <rect x="198" y="608" width="118" height="24" rx="5" fill="#fff4e6" stroke="#fd7e14" stroke-width="1.2"/>
         <text x="257" y="624" text-anchor="middle" font-size="11.5" font-weight="700" fill="#d9480f">回程隊伍</text>
 
-        <!-- E區 (25位) & 音控台 -->
         ${drawChairBlock(82, 636, 2, 4, 16, 9, 3, 5)}
         <rect x="86" y="634" width="66" height="20" rx="4" fill="rgba(255, 255, 255, 0.94)"/>
         <text x="119" y="648" text-anchor="middle" font-size="11.5" font-weight="700" fill="#e03131">E區 25位</text>
@@ -1402,7 +1418,6 @@
         <rect x="36" y="664" width="116" height="34" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1.2"/>
         <text x="94" y="686" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">音控台</text>
 
-        <!-- 影音 & 親子室 -->
         <rect x="184" y="636" width="54" height="62" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1.2"/>
         <text x="211" y="662" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1d1d1f">影音</text>
 
@@ -1412,7 +1427,6 @@
         <rect x="328" y="662" width="96" height="36" rx="6" fill="#fff4e6" stroke="#ffa94d" stroke-width="1.2"/>
         <text x="376" y="685" text-anchor="middle" font-size="13" font-weight="700" fill="#1d1d1f">親子室</text>
 
-        <!-- F區 Left (84位) & F區 Right (115位) -->
         ${drawChairBlock(184, 704, 14, 3, 16, 9, 3, 5)}
         <rect x="186" y="758" width="48" height="34" rx="6" fill="rgba(255, 255, 255, 0.94)"/>
         <text x="210" y="773" text-anchor="middle" font-size="12" font-weight="700" fill="#e03131">F區</text>
@@ -1425,7 +1439,6 @@
 
         <line x1="258" y1="660" x2="258" y2="965" stroke="#e03131" stroke-width="2" stroke-dasharray="6,5"/>
 
-        <!-- Movement Arrows & Clickable Floor Plan Markers 1 to 8 -->
         <g class="route-group ${hl(1)}">
           <g ${linkAttr(1)}>
             <circle cx="372" cy="378" r="13" fill="#1d1d1f"/>
@@ -1500,7 +1513,6 @@
           <path d="M 438 634 L 438 680 L 426 680" fill="none" stroke="#1d1d1f" stroke-width="2.2" marker-end="url(#arr-dark)"/>
         </g>
 
-        <!-- Bottom Return Lineup -->
         <rect x="200" y="974" width="116" height="28" rx="6" fill="#fff4e6" stroke="#fd7e14" stroke-width="1.3"/>
         <text x="258" y="993" text-anchor="middle" font-size="13" font-weight="700" fill="#d9480f">回程隊伍</text>
 
@@ -1524,7 +1536,6 @@
       </svg>`;
     }
 
-    // SVG 2: 姊妹招待站位圖 (Updated time: 8:30 集合, 9:20 就定位; Always white floor plan)
     function buildSisterSVG(highlightCode = null, interactive = true) {
       const hl = (code) => (!highlightCode || highlightCode === code ? '1' : '0.24');
       const linkAttr = (code) => interactive
@@ -1544,16 +1555,13 @@
 
         <rect x="0" y="0" width="560" height="790" rx="16" fill="#ffffff"/>
 
-        <!-- ==================== TOP PANEL: 8:30 集合 / 9:20 就定位 ==================== -->
         <rect x="14" y="14" width="532" height="382" rx="16" fill="#fff9fb" stroke="#ffdeeb" stroke-width="1.5"/>
 
         <text x="28" y="46" font-size="15.5" font-weight="800" fill="#1d1d1f">8:30 集合</text>
         <text x="28" y="68" font-size="14.5" font-weight="700" fill="#d93865">9:20 招待就定位</text>
 
-        <!-- Sanctuary Map Box -->
         <rect x="176" y="26" width="356" height="356" rx="12" fill="#ffffff" stroke="#dee2e6" stroke-width="1.4"/>
 
-        <!-- Speaker Lounge & Stage -->
         <rect x="184" y="34" width="66" height="44" rx="6" fill="#f1f3f5" stroke="#868e96" stroke-width="1"/>
         <text x="217" y="53" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d1d1f">講員</text>
         <text x="217" y="68" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1d1d1f">休息室</text>
@@ -1562,7 +1570,6 @@
         <text x="371" y="53" text-anchor="middle" font-size="14.5" font-weight="800" fill="#1d1d1f">舞臺</text>
         <text x="371" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#495057">主會堂</text>
 
-        <!-- Chairs matching Communion Map -->
         ${drawChairBlock(204, 84, 6, 4, 11, 5, 2, 4, 30)}
         <rect x="284" y="92" width="20" height="38" rx="3" fill="#adb5bd"/>
         <rect x="404" y="92" width="20" height="38" rx="3" fill="#adb5bd"/>
@@ -1574,7 +1581,6 @@
         ${drawChairBlock(310, 152, 6, 6, 12, 6, 2, 5)}
         ${drawChairBlock(410, 152, 6, 3, 12, 6, 2, 5)}
 
-        <!-- 女1 (報到) -->
         <g opacity="${hl('女1')}">
           <g ${linkAttr('女1')}>
             <rect x="408" y="104" width="112" height="26" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.5"/>
@@ -1584,7 +1590,6 @@
           </g>
         </g>
 
-        <!-- 女3 ↑ -->
         <g opacity="${hl('女3')}">
           <g ${linkAttr('女3')}>
             <circle cx="222" cy="292" r="14.5" fill="#d93865"/>
@@ -1595,7 +1600,6 @@
           <path d="M 252 308 L 252 268" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
         </g>
 
-        <!-- ← 女4 ↓ -->
         <g opacity="${hl('女4')}">
           <g ${linkAttr('女4')}>
             <circle cx="316" cy="292" r="14.5" fill="#d93865"/>
@@ -1606,7 +1610,6 @@
           <path d="M 346 328 L 314 328" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
         </g>
 
-        <!-- 女2 ↑ -->
         <g opacity="${hl('女2')}">
           <g ${linkAttr('女2')}>
             <circle cx="496" cy="292" r="14.5" fill="#d93865"/>
@@ -1617,13 +1620,11 @@
           <path d="M 466 308 L 466 268" fill="none" stroke="#d93865" stroke-width="3" marker-end="url(#arr-pink)"/>
         </g>
 
-        <!-- ==================== BOTTOM PANEL: 受洗中招待站位圖 ==================== -->
         <rect x="14" y="410" width="532" height="366" rx="16" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
         <text x="28" y="440" font-size="16.5" font-weight="800" fill="#1d1d1f">受洗中招待站位圖（姊妹組）</text>
 
         ${drawUnifiedStageFront(454)}
 
-        <!-- 女4 Callout -->
         <g opacity="${hl('女4')}">
           <g ${linkAttr('女4')}>
             <rect x="36" y="464" width="174" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
@@ -1636,7 +1637,6 @@
 
         <path d="M 222 522 L 152 522" fill="none" stroke="#0ca678" stroke-width="3.2" marker-end="url(#arr-teal)"/>
 
-        <!-- 女3 Callout -->
         <g opacity="${hl('女3')}">
           <g ${linkAttr('女3')}>
             <rect x="224" y="464" width="162" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
@@ -1647,7 +1647,6 @@
           </g>
         </g>
 
-        <!-- 女1 Callout -->
         <g opacity="${hl('女1')}">
           <g ${linkAttr('女1')}>
             <rect x="348" y="546" width="174" height="28" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
@@ -1657,7 +1656,6 @@
           </g>
         </g>
 
-        <!-- 女2 Callout -->
         <g opacity="${hl('女2')}">
           <g ${linkAttr('女2')}>
             <rect x="380" y="582" width="142" height="40" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.4"/>
@@ -1670,7 +1668,6 @@
       </svg>`;
     }
 
-    // SVG 3: 弟兄招待站位圖 (Always white floor plan)
     function buildBrotherSVG(highlightCode = null, interactive = true) {
       const hl = (code) => {
         if (!highlightCode) return '1';
@@ -1694,11 +1691,9 @@
 
         <rect x="0" y="0" width="560" height="790" rx="16" fill="#ffffff"/>
 
-        <!-- ==================== TOP PANEL: 受洗中招待站位圖 ==================== -->
         <rect x="14" y="14" width="532" height="382" rx="16" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
         <text x="28" y="44" font-size="16.5" font-weight="800" fill="#1d1d1f">受洗中招待站位圖（弟兄組）</text>
 
-        <!-- Back Corridor 男2 Callout -->
         <g opacity="${hl('男2')}">
           <g ${linkAttr('男2')}>
             <circle cx="242" cy="44" r="14.5" fill="#0066cc"/>
@@ -1711,7 +1706,6 @@
 
         ${drawUnifiedStageFront(72)}
 
-        <!-- 女4 Coordination Reference -->
         <g opacity="0.88">
           <g ${linkAttr('女4')}>
             <rect x="36" y="82" width="174" height="42" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
@@ -1722,7 +1716,6 @@
 
         <path d="M 222 140 L 152 140" fill="none" stroke="#0ca678" stroke-width="3.2" marker-end="url(#arr-teal-b)"/>
 
-        <!-- 男5 Callout -->
         <g opacity="${hl('男5')}">
           <g ${linkAttr('男5')}>
             <rect x="224" y="82" width="162" height="42" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
@@ -1733,7 +1726,6 @@
           </g>
         </g>
 
-        <!-- 男1 Callout -->
         <g opacity="${hl('男1')}">
           <g ${linkAttr('男1')}>
             <rect x="348" y="164" width="174" height="28" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
@@ -1743,7 +1735,6 @@
           </g>
         </g>
 
-        <!-- 女2 Coordination Reference -->
         <g opacity="0.88">
           <g ${linkAttr('女2')}>
             <rect x="380" y="200" width="142" height="40" rx="8" fill="#ffe3ec" stroke="#f06595" stroke-width="1.2"/>
@@ -1752,11 +1743,9 @@
           </g>
         </g>
 
-        <!-- ==================== BOTTOM PANEL: 保持地板乾燥 ==================== -->
         <rect x="14" y="410" width="532" height="366" rx="16" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
         <text x="28" y="440" font-size="16.5" font-weight="800" fill="#1d1d1f">保持地板乾燥（拖地分工）</text>
 
-        <!-- Back Corridor 男6、7、8 Callout -->
         <g opacity="${hl('男678')}">
           <g ${linkAttr('男6')}>
             <circle cx="226" cy="436" r="14" fill="#0066cc"/>
@@ -1781,7 +1770,6 @@
 
         ${drawUnifiedStageFront(468)}
 
-        <!-- 男4 Callout -->
         <g opacity="${hl('男4')}">
           <g ${linkAttr('男4')}>
             <rect x="38" y="482" width="166" height="28" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
@@ -1791,7 +1779,6 @@
           </g>
         </g>
 
-        <!-- 男3 Callout -->
         <g opacity="${hl('男3')}">
           <g ${linkAttr('男3')}>
             <rect x="216" y="482" width="176" height="28" rx="8" fill="#e7f5ff" stroke="#4dabf7" stroke-width="1.4"/>
@@ -1804,8 +1791,51 @@
     }
 
     // =========================================================================
-    // 4. THEME SWITCHER (LIGHT / DARK)
+    // 4. APP ICON & THEME SWITCHER
     // =========================================================================
+    function generateAppIcon() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 180;
+      canvas.height = 180;
+      const ctx = canvas.getContext("2d");
+
+      const grad = ctx.createLinearGradient(0, 0, 180, 180);
+      grad.addColorStop(0, "#0071e3");
+      grad.addColorStop(1, "#00a2ff");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 180, 180);
+
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineCap = "round";
+      ctx.lineWidth = 13;
+      ctx.beginPath();
+      ctx.moveTo(90, 36);
+      ctx.lineTo(90, 110);
+      ctx.moveTo(63, 64);
+      ctx.lineTo(117, 64);
+      ctx.stroke();
+
+      ctx.lineWidth = 10;
+      ctx.globalAlpha = 0.95;
+      ctx.beginPath();
+      ctx.moveTo(42, 126);
+      ctx.quadraticCurveTo(66, 114, 90, 126);
+      ctx.quadraticCurveTo(114, 138, 138, 126);
+      ctx.stroke();
+
+      ctx.lineWidth = 8;
+      ctx.globalAlpha = 0.75;
+      ctx.beginPath();
+      ctx.moveTo(56, 146);
+      ctx.quadraticCurveTo(73, 137, 90, 146);
+      ctx.quadraticCurveTo(107, 155, 124, 146);
+      ctx.stroke();
+
+      const pngUrl = canvas.toDataURL("image/png");
+      const appleIcon = document.getElementById("apple-touch-icon-link");
+      if (appleIcon) appleIcon.href = pngUrl;
+    }
+
     function applyTheme(theme) {
       document.documentElement.setAttribute("data-theme", theme);
       const iconEl = document.getElementById("themeIcon");
@@ -1842,7 +1872,7 @@
     }
 
     // =========================================================================
-    // 5. UI RENDERING & INTERACTIONS
+    // 5. UI RENDERING & INTERACTIONS (WITH DUAL-ROLE ONE-CLICK SWITCH)
     // =========================================================================
     function createWorkerCard(worker, type) {
       const card = document.createElement("button");
@@ -1851,9 +1881,17 @@
       card.setAttribute("data-search", `${worker.position} ${worker.name} ${worker.summary}`);
       card.onclick = () => openWorkerModal(worker, type);
 
+      const dual = findDualRole(worker.name, type);
+      const dualBadge = dual
+        ? `<span class="dual-tag">${dual.type === "communion" ? "+聖餐" : "+招待"}</span>`
+        : "";
+
       card.innerHTML = `
         <div>
-          <span class="pos-pill ${worker.pillClass}">${worker.position}</span>
+          <div class="card-badge-row">
+            <span class="pos-pill ${worker.pillClass}">${worker.position}</span>
+            ${dualBadge}
+          </div>
           <div class="worker-name" style="margin-top:8px;">${worker.name}</div>
         </div>
         <div>
@@ -1945,13 +1983,36 @@
 
     function openWorkerModal(worker, type) {
       const modal = document.getElementById("detailModal");
-      const badge = document.getElementById("modalBadge");
+      const badgeBar = document.getElementById("modalBadgeBar");
       const nameEl = document.getElementById("modalWorkerName");
       const subEl = document.getElementById("modalRoleSubtitle");
       const bodyEl = document.getElementById("modalBody");
 
-      badge.className = `pos-pill ${worker.pillClass}`;
-      badge.textContent = worker.position;
+      // Check if this person serves in BOTH Reception and Communion
+      const dual = findDualRole(worker.name, type);
+      let switchBtnHtml = "";
+      if (dual) {
+        const label = dual.type === "communion"
+          ? `🍞 切換看聖餐服事（${dual.worker.position}）`
+          : `🤝 切換看招待服事（${dual.worker.position}）`;
+        switchBtnHtml = `<button type="button" class="cross-role-btn" id="crossRoleSwitchBtn">${label}</button>`;
+      }
+
+      badgeBar.innerHTML = `
+        <span class="pos-pill ${worker.pillClass}">${worker.position}</span>
+        ${switchBtnHtml}
+      `;
+
+      if (dual) {
+        const btn = document.getElementById("crossRoleSwitchBtn");
+        if (btn) {
+          btn.onclick = () => {
+            openWorkerModal(dual.worker, dual.type);
+            document.querySelector(".modal-card").scrollTo({ top: 0, behavior: "smooth" });
+          };
+        }
+      }
+
       nameEl.textContent = worker.name;
       subEl.textContent = worker.group;
 
@@ -2028,6 +2089,7 @@
       if (e.key === "Escape") closeModal();
     });
 
+    generateAppIcon();
     initTheme();
     renderAll();
   </script>
