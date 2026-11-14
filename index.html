@@ -903,6 +903,24 @@
       margin: -6px 0 16px;
     }
 
+    .worker-card { position: relative; }
+    .worker-card.arrived::after {
+      content: "✓";
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #34c759;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     .roll-toast {
       position: fixed;
       left: 50%;
@@ -949,14 +967,14 @@
       </div>
 
       <div class="segmented-control" role="tablist" aria-label="服事分頁切換">
-        <button class="tab-btn active" id="tab-reception" role="tab" aria-selected="true" onclick="switchTab('reception')">
+        <button class="tab-btn active" id="tab-rollcall" role="tab" aria-selected="true" onclick="switchTab('rollcall')">
+          點名
+        </button>
+        <button class="tab-btn" id="tab-reception" role="tab" aria-selected="false" onclick="switchTab('reception')">
           受洗招待服事同工
         </button>
         <button class="tab-btn" id="tab-communion" role="tab" aria-selected="false" onclick="switchTab('communion')">
           聖餐服事同工
-        </button>
-        <button class="tab-btn" id="tab-rollcall" role="tab" aria-selected="false" onclick="switchTab('rollcall')">
-          點名
         </button>
       </div>
     </div>
@@ -972,7 +990,7 @@
     </div>
 
     <!-- ==================== PAGE 1: 受洗招待服事同工 ==================== -->
-    <section id="panel-reception" class="tab-panel active" role="tabpanel">
+    <section id="panel-reception" class="tab-panel" role="tabpanel">
       <div class="callout-card">
         <div class="callout-icon">⏰</div>
         <div class="callout-text">
@@ -1065,7 +1083,7 @@
     </section>
 
     <!-- ==================== PAGE 3: 點名 ==================== -->
-    <section id="panel-rollcall" class="tab-panel" role="tabpanel">
+    <section id="panel-rollcall" class="tab-panel active" role="tabpanel">
       <div class="roll-summary">
         <div class="roll-count" id="rollCount">0 / 0<small>已抵達</small></div>
         <div class="roll-progress"><div class="roll-progress-bar" id="rollProgressBar"></div></div>
@@ -1973,6 +1991,7 @@
       const card = document.createElement("button");
       card.type = "button";
       card.className = "worker-card";
+      card.dataset.name = worker.name;
       card.setAttribute("data-search", `${worker.position} ${worker.name} ${worker.summary}`);
       card.onclick = () => openWorkerModal(worker, type);
 
@@ -2132,6 +2151,9 @@
         row.classList.toggle("arrived", !!t);
         row.setAttribute("aria-pressed", t ? "true" : "false");
         row.querySelector(".roll-time").textContent = t ? `${t} 抵達` : "未到";
+      });
+      document.querySelectorAll(".worker-card").forEach(card => {
+        card.classList.toggle("arrived", !!rollState[card.dataset.name]);
       });
       const names = getAllRollNames();
       const arrived = names.filter(n => rollState[n]).length;
@@ -2338,9 +2360,6 @@
     renderAll();
     loadRollState();
     renderRollCall();
-    try {
-      if (localStorage.getItem("clc-baptism-tab") === "rollcall") switchTab("rollcall");
-    } catch (e) {}
   </script>
 </body>
 </html>
