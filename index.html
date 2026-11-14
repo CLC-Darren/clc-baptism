@@ -196,13 +196,19 @@
       flex: 1;
       border: none;
       background: transparent;
-      padding: 10px 16px;
+      padding: 10px 8px;
       border-radius: 999px;
-      font-size: 15.5px;
+      font-size: 14.5px;
+      white-space: nowrap;
       font-weight: 700;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    #tab-rollcall {
+      flex: 0 0 auto;
+      padding: 10px 14px;
     }
 
     .tab-btn.active {
@@ -747,6 +753,174 @@
       opacity: 1;
     }
 
+    /* Roll Call (點名) */
+    .roll-summary {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .roll-count {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .roll-count small {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-left: 4px;
+    }
+
+    .roll-progress {
+      flex: 1;
+      min-width: 140px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--seg-bg);
+      overflow: hidden;
+    }
+
+    .roll-progress-bar {
+      height: 100%;
+      width: 0;
+      background: #34c759;
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .roll-actions {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .roll-action-btn {
+      flex: 1;
+      border: 1.5px solid var(--border);
+      background: var(--surface-subtle);
+      color: var(--text-primary);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .roll-action-btn.danger { color: var(--red-team); }
+
+    .roll-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .roll-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      text-align: left;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      cursor: pointer;
+      color: var(--text-primary);
+      font: inherit;
+      transition: background-color 0.2s, border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .roll-check {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: transparent;
+      transition: all 0.2s;
+    }
+
+    .roll-row.arrived {
+      border-color: #34c759;
+      background: rgba(52, 199, 89, 0.1);
+    }
+
+    .roll-row.arrived .roll-check {
+      background: #34c759;
+      border-color: #34c759;
+      color: #fff;
+    }
+
+    .roll-info { flex: 1; min-width: 0; }
+
+    .roll-name {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .roll-roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .roll-time {
+      flex: 0 0 auto;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      text-align: right;
+    }
+
+    .roll-row.arrived .roll-time { color: #248a3d; }
+    [data-theme="dark"] .roll-row.arrived .roll-time { color: #30d158; }
+
+    .roll-note {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      margin: -6px 0 16px;
+    }
+
+    .roll-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--text-primary);
+      color: var(--bg);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 2000;
+    }
+
+    .roll-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
     footer {
       text-align: center;
       padding: 18px 16px 36px;
@@ -776,6 +950,9 @@
         </button>
         <button class="tab-btn" id="tab-communion" role="tab" aria-selected="false" onclick="switchTab('communion')">
           聖餐服事同工
+        </button>
+        <button class="tab-btn" id="tab-rollcall" role="tab" aria-selected="false" onclick="switchTab('rollcall')">
+          點名
         </button>
       </div>
     </div>
@@ -880,7 +1057,37 @@
 
       <div class="roster-grid" id="communion-grid"></div>
     </section>
+
+    <!-- ==================== PAGE 3: 點名 ==================== -->
+    <section id="panel-rollcall" class="tab-panel" role="tabpanel">
+      <div class="roll-summary">
+        <div class="roll-count" id="rollCount">0 / 0<small>已抵達</small></div>
+        <div class="roll-progress"><div class="roll-progress-bar" id="rollProgressBar"></div></div>
+        <div class="roll-actions">
+          <button type="button" class="roll-action-btn" onclick="copyRollSummary()">📋 複製點名結果</button>
+          <button type="button" class="roll-action-btn danger" onclick="resetRollCall()">↺ 全部重設</button>
+        </div>
+      </div>
+      <div class="roll-note">點一下姓名即可勾選／取消。紀錄只存在這支手機上。</div>
+
+      <div class="section-header">
+        <h3 class="section-title" style="font-size: 18px;">姊妹招待（女1 ～ 女4）</h3>
+      </div>
+      <div class="roll-list" id="roll-sister"></div>
+
+      <div class="section-header">
+        <h3 class="section-title" style="font-size: 18px;">弟兄招待（男1 ～ 男8）</h3>
+      </div>
+      <div class="roll-list" id="roll-brother"></div>
+
+      <div class="section-header">
+        <h3 class="section-title" style="font-size: 18px;">聖餐服事（位置 1 ～ 8）</h3>
+      </div>
+      <div class="roll-list" id="roll-communion"></div>
+    </section>
   </main>
+
+  <div class="roll-toast" id="rollToast"></div>
 
   <footer>
     11 月 14 日（六）CLC受洗禮拜服事說明
@@ -1807,27 +2014,159 @@
     }
 
     function switchTab(tabName) {
-      const tabReception = document.getElementById("tab-reception");
-      const tabCommunion = document.getElementById("tab-communion");
-      const panelReception = document.getElementById("panel-reception");
-      const panelCommunion = document.getElementById("panel-communion");
-
-      if (tabName === "reception") {
-        tabReception.classList.add("active");
-        tabReception.setAttribute("aria-selected", "true");
-        tabCommunion.classList.remove("active");
-        tabCommunion.setAttribute("aria-selected", "false");
-        panelReception.classList.add("active");
-        panelCommunion.classList.remove("active");
-      } else {
-        tabCommunion.classList.add("active");
-        tabCommunion.setAttribute("aria-selected", "true");
-        tabReception.classList.remove("active");
-        tabReception.setAttribute("aria-selected", "false");
-        panelCommunion.classList.add("active");
-        panelReception.classList.remove("active");
-      }
+      ["reception", "communion", "rollcall"].forEach(name => {
+        const isActive = name === tabName;
+        const tab = document.getElementById(`tab-${name}`);
+        const panel = document.getElementById(`panel-${name}`);
+        tab.classList.toggle("active", isActive);
+        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        panel.classList.toggle("active", isActive);
+      });
+      try { localStorage.setItem("clc-baptism-tab", tabName); } catch (e) {}
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // =========================================================================
+    // 6. ROLL CALL (點名) — 依姓名記錄，同一人兼任兩組時自動同步
+    // =========================================================================
+    const ROLL_KEY = "clc-baptism-rollcall-2026-11-14";
+    let rollState = {};
+
+    function loadRollState() {
+      try {
+        rollState = JSON.parse(localStorage.getItem(ROLL_KEY)) || {};
+      } catch (e) {
+        rollState = {};
+      }
+    }
+
+    function saveRollState() {
+      try { localStorage.setItem(ROLL_KEY, JSON.stringify(rollState)); } catch (e) {}
+    }
+
+    function getAllRollNames() {
+      const names = [];
+      [...receptionWorkers, ...communionWorkers].forEach(w => {
+        if (!names.includes(w.name)) names.push(w.name);
+      });
+      return names;
+    }
+
+    function getRolesForName(name) {
+      const roles = [];
+      receptionWorkers.filter(w => w.name === name)
+        .forEach(w => roles.push({ label: w.code, pillClass: w.pillClass }));
+      communionWorkers.filter(w => w.name === name)
+        .forEach(w => roles.push({ label: `聖餐 ${w.num}`, pillClass: w.pillClass }));
+      return roles;
+    }
+
+    function createRollRow(worker) {
+      const row = document.createElement("button");
+      row.type = "button";
+      row.className = "roll-row";
+      row.dataset.name = worker.name;
+      const roles = getRolesForName(worker.name);
+      row.setAttribute("data-search", `${worker.name} ${roles.map(r => r.label).join(" ")} ${worker.position}`);
+      row.setAttribute("aria-pressed", "false");
+      row.innerHTML = `
+        <span class="roll-check" aria-hidden="true">✓</span>
+        <span class="roll-info">
+          <span class="roll-name">${worker.name}</span>
+          <span class="roll-roles">
+            ${roles.map(r => `<span class="pos-pill ${r.pillClass}">${r.label}</span>`).join("")}
+          </span>
+        </span>
+        <span class="roll-time"></span>
+      `;
+      row.onclick = () => toggleArrival(worker.name);
+      return row;
+    }
+
+    function renderRollCall() {
+      const sister = document.getElementById("roll-sister");
+      const brother = document.getElementById("roll-brother");
+      const communion = document.getElementById("roll-communion");
+      receptionWorkers.forEach(w => {
+        (w.category === "sister" ? sister : brother).appendChild(createRollRow(w));
+      });
+      communionWorkers.forEach(w => communion.appendChild(createRollRow(w)));
+      updateRollUI();
+    }
+
+    function updateRollUI() {
+      document.querySelectorAll(".roll-row").forEach(row => {
+        const t = rollState[row.dataset.name];
+        row.classList.toggle("arrived", !!t);
+        row.setAttribute("aria-pressed", t ? "true" : "false");
+        row.querySelector(".roll-time").textContent = t ? `${t} 抵達` : "未到";
+      });
+      const names = getAllRollNames();
+      const arrived = names.filter(n => rollState[n]).length;
+      document.getElementById("rollCount").innerHTML = `${arrived} / ${names.length}<small>已抵達</small>`;
+      document.getElementById("rollProgressBar").style.width = `${(arrived / names.length) * 100}%`;
+    }
+
+    function toggleArrival(name) {
+      if (rollState[name]) {
+        delete rollState[name];
+      } else {
+        const now = new Date();
+        rollState[name] = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+      }
+      saveRollState();
+      updateRollUI();
+    }
+
+    function resetRollCall() {
+      if (!Object.keys(rollState).length) return;
+      if (!confirm("確定要清除所有點名紀錄嗎？")) return;
+      rollState = {};
+      saveRollState();
+      updateRollUI();
+    }
+
+    function showRollToast(msg) {
+      const el = document.getElementById("rollToast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(showRollToast._t);
+      showRollToast._t = setTimeout(() => el.classList.remove("show"), 1800);
+    }
+
+    function copyRollSummary() {
+      const names = getAllRollNames();
+      const arrived = names.filter(n => rollState[n]);
+      const missing = names.filter(n => !rollState[n]);
+      const label = n => `${n}（${getRolesForName(n).map(r => r.label).join("、")}）`;
+      const text = [
+        `11/14 受洗禮拜同工點名：已到 ${arrived.length} / ${names.length}`,
+        "",
+        `✅ 已到：`,
+        ...(arrived.length ? arrived.map(n => `${label(n)} ${rollState[n]}`) : ["（無）"]),
+        "",
+        `⏳ 未到：`,
+        ...(missing.length ? missing.map(label) : ["（全員到齊 🙌）"])
+      ].join("\n");
+
+      const done = () => showRollToast("已複製，可貼到 LINE");
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else {
+        fallbackCopy(text, done);
+      }
+    }
+
+    function fallbackCopy(text, done) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) { alert(text); }
+      document.body.removeChild(ta);
     }
 
     function filterReception(category, btnEl) {
@@ -1851,7 +2190,7 @@
 
     function handleSearch(query) {
       const q = query.trim().toLowerCase();
-      document.querySelectorAll(".worker-card").forEach(card => {
+      document.querySelectorAll(".worker-card, .roll-row").forEach(card => {
         const text = card.getAttribute("data-search").toLowerCase();
         card.style.display = text.includes(q) ? "flex" : "none";
       });
@@ -1964,6 +2303,11 @@
 
     initTheme();
     renderAll();
+    loadRollState();
+    renderRollCall();
+    try {
+      if (localStorage.getItem("clc-baptism-tab") === "rollcall") switchTab("rollcall");
+    } catch (e) {}
   </script>
 </body>
 </html>
