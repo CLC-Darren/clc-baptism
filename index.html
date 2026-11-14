@@ -577,6 +577,10 @@
       }
     }
 
+    .modal-card.compact {
+      height: auto;
+    }
+
     .modal-backdrop.open .modal-card {
       transform: scale(1) translateY(0);
     }
@@ -982,6 +986,7 @@
           <div class="diagram-top">
             <h3 class="diagram-title">姊妹招待站位圖（女1 ～ 女4）</h3>
           </div>
+          <div class="map-selector" id="sister-map-filter"></div>
           <div class="svg-frame" id="main-sister-svg-container"></div>
         </div>
 
@@ -989,6 +994,7 @@
           <div class="diagram-top">
             <h3 class="diagram-title">弟兄招待站位圖（男1 ～ 男8）</h3>
           </div>
+          <div class="map-selector" id="brother-map-filter"></div>
           <div class="svg-frame" id="main-brother-svg-container"></div>
         </div>
       </div>
@@ -1343,14 +1349,14 @@
       }
     }
 
-    function openCommunionByNum(numStr) {
+    function openCommunionByNum(numStr, showMap = true) {
       const worker = communionWorkers.find(w => w.num === String(numStr));
-      if (worker) openWorkerModal(worker, "communion");
+      if (worker) openWorkerModal(worker, "communion", showMap);
     }
 
-    function openReceptionByCode(codeStr) {
+    function openReceptionByCode(codeStr, showMap = true) {
       const worker = receptionWorkers.find(w => w.code === codeStr);
-      if (worker) openWorkerModal(worker, "reception");
+      if (worker) openWorkerModal(worker, "reception", showMap);
     }
 
     // =========================================================================
@@ -1404,7 +1410,7 @@
       const dimClass = highlightNum && highlightNum !== 'all' ? 'dimmed' : '';
       const hl = (n) => (highlightNum === String(n) ? 'highlighted' : '');
       const linkAttr = (n) => interactive
-        ? `class="map-hotlink" onclick="openCommunionByNum('${n}')" role="button" tabindex="0"`
+        ? `class="map-hotlink" onclick="openCommunionByNum('${n}', false)" role="button" tabindex="0"`
         : '';
 
       return `
@@ -1670,7 +1676,7 @@
     function buildSisterSVG(highlightCode = null, interactive = true) {
       const hl = (code) => (!highlightCode || highlightCode === code ? '1' : '0.24');
       const linkAttr = (code) => interactive
-        ? `class="map-hotlink" onclick="openReceptionByCode('${code}')" role="button" tabindex="0"`
+        ? `class="map-hotlink" onclick="openReceptionByCode('${code}', false)" role="button" tabindex="0"`
         : '';
 
       return `
@@ -1806,7 +1812,7 @@
         return highlightCode === code ? '1' : '0.24';
       };
       const linkAttr = (code) => interactive
-        ? `class="map-hotlink" onclick="openReceptionByCode('${code}')" role="button" tabindex="0"`
+        ? `class="map-hotlink" onclick="openReceptionByCode('${code}', false)" role="button" tabindex="0"`
         : '';
 
       return `
@@ -2005,6 +2011,32 @@
       document.getElementById("main-communion-svg-container").innerHTML = buildCommunionSVG('all', true);
       document.getElementById("main-sister-svg-container").innerHTML = buildSisterSVG(null, true);
       document.getElementById("main-brother-svg-container").innerHTML = buildBrotherSVG(null, true);
+      renderReceptionChips();
+    }
+
+    function renderReceptionChips() {
+      [["sister", "sister-map-filter"], ["brother", "brother-map-filter"]].forEach(([cat, id]) => {
+        const box = document.getElementById(id);
+        const allBtn = document.createElement("button");
+        allBtn.className = "map-chip active";
+        allBtn.textContent = "全部";
+        allBtn.onclick = () => highlightReceptionMap(cat, null, allBtn);
+        box.appendChild(allBtn);
+        receptionWorkers.filter(w => w.category === cat).forEach(w => {
+          const b = document.createElement("button");
+          b.className = "map-chip";
+          b.textContent = `${w.code} ${w.name}`;
+          b.onclick = () => highlightReceptionMap(cat, w.code, b);
+          box.appendChild(b);
+        });
+      });
+    }
+
+    function highlightReceptionMap(cat, code, btnEl) {
+      document.querySelectorAll(`#${cat}-map-filter .map-chip`).forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      document.getElementById(`main-${cat}-svg-container`).innerHTML =
+        cat === "sister" ? buildSisterSVG(code, true) : buildBrotherSVG(code, true);
     }
 
     function highlightCommunionRoute(num, btnEl) {
@@ -2196,7 +2228,7 @@
       });
     }
 
-    function openWorkerModal(worker, type) {
+    function openWorkerModal(worker, type, showMap = true) {
       const modal = document.getElementById("detailModal");
       const badgeBar = document.getElementById("modalBadgeBar");
       const nameEl = document.getElementById("modalWorkerName");
@@ -2221,7 +2253,7 @@
         const btn = document.getElementById("crossRoleSwitchBtn");
         if (btn) {
           btn.onclick = () => {
-            openWorkerModal(dual.worker, dual.type);
+            openWorkerModal(dual.worker, dual.type, showMap);
             document.querySelector(".modal-card").scrollTo({ top: 0, behavior: "smooth" });
           };
         }
@@ -2241,12 +2273,12 @@
             <div class="detail-label">現場原則</div>
             <div class="detail-value">${worker.note}</div>
           </div>
-          <div class="modal-svg-box">
+          ${showMap ? `<div class="modal-svg-box">
             <div class="modal-svg-inner">${buildCommunionSVG(worker.num, false)}</div>
-          </div>
+          </div>` : ""}
         `;
       } else {
-        const mapSvg = worker.category === "sister"
+        const mapSvg = !showMap ? "" : worker.category === "sister"
           ? buildSisterSVG(worker.code, false)
           : buildBrotherSVG(worker.code, false);
 
@@ -2257,7 +2289,7 @@
             <div class="multi-worker-tabs">
               ${corridorGroup.map(w => `
                 <button type="button" class="multi-worker-btn ${w.code === worker.code ? 'active' : ''}"
-                  onclick="openReceptionByCode('${w.code}')">
+                  onclick="openReceptionByCode('${w.code}', ${showMap})">
                   ${w.code} ${w.name}
                 </button>
               `).join('')}
@@ -2275,12 +2307,13 @@
             <div class="detail-label">第二階段 · 受洗開始後任務</div>
             <div class="detail-value">${worker.stage2}</div>
           </div>
-          <div class="modal-svg-box">
+          ${showMap ? `<div class="modal-svg-box">
             <div class="modal-svg-inner">${mapSvg}</div>
-          </div>
+          </div>` : ""}
         `;
       }
 
+      document.querySelector(".modal-card").classList.toggle("compact", !showMap);
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
