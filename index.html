@@ -953,8 +953,30 @@
       color: var(--text-tertiary);
       text-align: right;
     }
-    .bap-name { flex: 1; font-size: 18px; font-weight: 800; color: var(--text-primary); }
-    .bap-note { font-size: 14px; color: var(--text-tertiary); }
+    .bap-name { flex: 1; font-size: 18px; font-weight: 800; color: var(--text-primary); white-space: nowrap; }
+    .bap-note { font-size: 14px; color: var(--text-tertiary); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bap-row .pos-pill { flex: 0 0 auto; }
+    .bap-rep-btn {
+      flex: 0 0 auto;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .bap-row.is-rep { background: rgba(255, 179, 0, 0.12); }
+    .bap-row.is-rep .bap-rep-btn {
+      background: #f5a300;
+      border-color: #f5a300;
+      color: #fff;
+    }
+    .bap-rep-card .bap-rows { border: 2px solid #f5a300; }
+    .bap-rep-card .bap-group-title { color: #c77d00; }
+    [data-theme="dark"] .bap-rep-card .bap-group-title { color: #ffb340; }
+    .bap-hint { font-size: 14px; color: var(--text-tertiary); margin: -6px 0 16px; }
 
     .roll-toast {
       position: fixed;
@@ -1129,6 +1151,7 @@
           <span>司會：林漢威牧師</span>
         </div>
       </div>
+      <div class="bap-hint">按姓名右邊的「選代表」即可設為受洗代表，再按一次取消。</div>
       <div id="baptism-list"></div>
     </section>
 
@@ -2157,18 +2180,49 @@
       { title: "6-3. 家庭弟兄牧區 2 位", pastor: "永健牧師", people: [["39", "林尚儒", "弟兄"], ["40", "伍仁傑", "弟兄"]] }
     ];
 
+    const REP_KEY = "clc-baptism-reps-2026-11-14";
+    let baptismReps = [];
+    try { baptismReps = JSON.parse(localStorage.getItem(REP_KEY)) || []; } catch (e) {}
+
+    function toggleBaptismRep(name) {
+      baptismReps = baptismReps.includes(name)
+        ? baptismReps.filter(n => n !== name)
+        : [...baptismReps, name];
+      try { localStorage.setItem(REP_KEY, JSON.stringify(baptismReps)); } catch (e) {}
+      renderBaptismList();
+      handleSearch(document.getElementById("searchInput").value);
+    }
+
+    function bapRowHtml(num, name, gender, note, extra, searchText) {
+      const isRep = baptismReps.includes(name);
+      return `
+        <div class="bap-row ${isRep ? "is-rep" : ""}" data-search="${num} ${name} ${gender} ${searchText}">
+          <span class="bap-num">${num}</span>
+          <span class="bap-name">${name}</span>
+          ${note ? `<span class="bap-note">${note}</span>` : ""}
+          ${extra}
+          <span class="pos-pill ${gender === "姊妹" ? "pink" : "blue"}">${gender}</span>
+          <button type="button" class="bap-rep-btn" onclick="toggleBaptismRep('${name}')">${isRep ? "★ 代表" : "選代表"}</button>
+        </div>`;
+    }
+
     function renderBaptismList() {
-      document.getElementById("baptism-list").innerHTML = baptismGroups.map(g => `
+      const all = baptismGroups.flatMap(g => g.people.map(p => ({ p, g })));
+      const reps = baptismReps.map(n => all.find(x => x.p[1] === n)).filter(Boolean);
+      const repHtml = reps.length ? `
+        <div class="bap-group bap-rep-card">
+          <h3 class="bap-group-title">⭐ 受洗代表（${reps.length} 位）</h3>
+          <div class="bap-rows">
+            ${reps.map(({ p: [num, name, gender], g }) =>
+              bapRowHtml(num, name, gender, g.title.replace(/^[\d-]+\.\s*/, "").replace(/\s*\d+\s*位$/, ""), "", "受洗代表")).join("")}
+          </div>
+        </div>` : "";
+      document.getElementById("baptism-list").innerHTML = repHtml + baptismGroups.map(g => `
         <div class="bap-group">
           <h3 class="bap-group-title">${g.title} <span>· 請${g.pastor}施洗</span></h3>
           <div class="bap-rows">
-            ${g.people.map(([num, name, gender, note]) => `
-              <div class="bap-row" data-search="${num} ${name} ${gender} ${g.title} ${g.pastor}">
-                <span class="bap-num">${num}</span>
-                <span class="bap-name">${name}</span>
-                ${note ? `<span class="bap-note">${note}</span>` : ""}
-                <span class="pos-pill ${gender === "姊妹" ? "pink" : "blue"}">${gender}</span>
-              </div>`).join("")}
+            ${g.people.map(([num, name, gender, note]) =>
+              bapRowHtml(num, name, gender, note, "", `${g.title} ${g.pastor}`)).join("")}
           </div>
         </div>`).join("");
     }
