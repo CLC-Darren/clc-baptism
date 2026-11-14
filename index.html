@@ -189,14 +189,17 @@
       padding: 4px;
       border-radius: 999px;
       width: 100%;
-      max-width: 460px;
+      max-width: 560px;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
+    .segmented-control::-webkit-scrollbar { display: none; }
 
     .tab-btn {
-      flex: 1;
+      flex: 1 0 auto;
       border: none;
       background: transparent;
-      padding: 10px 8px;
+      padding: 10px 7px;
       border-radius: 999px;
       font-size: 14.5px;
       white-space: nowrap;
@@ -921,6 +924,33 @@
       justify-content: center;
     }
 
+    .note-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+    .note-item {
+      display: flex;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .note-num {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .note-body strong { display: block; font-size: 18px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .note-body p { margin: 0; font-size: 16.5px; line-height: 1.6; color: var(--text-secondary); }
+    .note-body .note-quote { color: var(--text-primary); font-weight: 700; }
+
     .bap-group { margin-bottom: 18px; }
     .bap-group-title {
       font-size: 16px;
@@ -953,7 +983,9 @@
       color: var(--text-tertiary);
       text-align: right;
     }
-    .bap-name { flex: 1; font-size: 18px; font-weight: 800; color: var(--text-primary); white-space: nowrap; }
+    .bap-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .bap-name { font-size: 18px; font-weight: 800; color: var(--text-primary); white-space: nowrap; }
+    .bap-district { font-size: 14px; color: var(--text-tertiary); margin-top: 2px; }
     .bap-note { font-size: 14px; color: var(--text-tertiary); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .bap-row .pos-pill { flex: 0 0 auto; }
     .bap-rep-btn {
@@ -1035,6 +1067,9 @@
         </button>
         <button class="tab-btn" id="tab-baptism" role="tab" aria-selected="false" onclick="switchTab('baptism')">
           受洗名單
+        </button>
+        <button class="tab-btn" id="tab-baptizer" role="tab" aria-selected="false" onclick="switchTab('baptizer')">
+          施洗須知
         </button>
       </div>
     </div>
@@ -1140,6 +1175,43 @@
       </div>
 
       <div class="roster-grid" id="communion-grid"></div>
+    </section>
+
+    <!-- ==================== PAGE 5: 施洗者注意事項 ==================== -->
+    <section id="panel-baptizer" class="tab-panel" role="tabpanel">
+      <div class="section-header">
+        <h3 class="section-title" style="font-size: 18px;">施洗者注意事項</h3>
+      </div>
+      <div class="note-list">
+        <div class="note-item">
+          <span class="note-num">1</span>
+          <div class="note-body">
+            <strong>施洗宣告</strong>
+            <p class="note-quote">「你既心裡相信，口裡承認，相信耶穌基督是主，就奉聖父、聖子、聖靈的名為你施洗。」</p>
+          </div>
+        </div>
+        <div class="note-item">
+          <span class="note-num">2</span>
+          <div class="note-body">
+            <strong>先舀好水，再開始施洗</strong>
+            <p>水先舀好再開始，這樣司會拿麥克風時才不會跑掉。</p>
+          </div>
+        </div>
+        <div class="note-item">
+          <span class="note-num">3</span>
+          <div class="note-body">
+            <strong>自由禱告，不用湊麥克風</strong>
+            <p>禱告時可以自由禱告，頭不用去湊麥克風，麥克風會靠近你的臉。</p>
+          </div>
+        </div>
+        <div class="note-item">
+          <span class="note-num">4</span>
+          <div class="note-body">
+            <strong>提醒受洗者採高跪姿</strong>
+            <p>受洗者下來時膝蓋跪到地上、腰挺直，不要靠太前面，不然水會潑出來。</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ==================== PAGE 4: 受洗名單 ==================== -->
@@ -2138,7 +2210,7 @@
     }
 
     function switchTab(tabName) {
-      ["reception", "communion", "rollcall", "baptism"].forEach(name => {
+      ["reception", "communion", "rollcall", "baptism", "baptizer"].forEach(name => {
         const isActive = name === tabName;
         const tab = document.getElementById(`tab-${name}`);
         const panel = document.getElementById(`panel-${name}`);
@@ -2193,13 +2265,19 @@
       handleSearch(document.getElementById("searchInput").value);
     }
 
+    // 牧區小組：名字 → "牧區-小組"，取得資料後填入即可
+    const baptismDistricts = {};
+
     function bapRowHtml(num, name, gender, note, extra, searchText) {
       const isRep = baptismReps.includes(name);
+      const district = baptismDistricts[name] || "牧區小組：待補";
       return `
-        <div class="bap-row ${isRep ? "is-rep" : ""}" data-search="${num} ${name} ${gender} ${searchText}">
+        <div class="bap-row ${isRep ? "is-rep" : ""}" data-search="${num} ${name} ${gender} ${baptismDistricts[name] || ""} ${searchText}">
           <span class="bap-num">${num}</span>
-          <span class="bap-name">${name}</span>
-          ${note ? `<span class="bap-note">${note}</span>` : ""}
+          <span class="bap-main">
+            <span class="bap-name">${name}</span>
+            <span class="bap-district">${district}${note ? ` · ${note}` : ""}</span>
+          </span>
           ${extra}
           <span class="pos-pill ${gender === "姊妹" ? "pink" : "blue"}">${gender}</span>
           <button type="button" class="bap-rep-btn" onclick="toggleBaptismRep('${name}')">${isRep ? "★ 代表" : "選代表"}</button>
