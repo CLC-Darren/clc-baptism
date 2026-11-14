@@ -921,6 +921,41 @@
       justify-content: center;
     }
 
+    .bap-group { margin-bottom: 18px; }
+    .bap-group-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin: 0 0 8px;
+    }
+    .bap-group-title span {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .bap-rows {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .bap-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-top: 1px solid var(--seg-bg);
+    }
+    .bap-row:first-child { border-top: none; }
+    .bap-num {
+      width: 28px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      text-align: right;
+    }
+    .bap-name { flex: 1; font-size: 18px; font-weight: 800; color: var(--text-primary); }
+    .bap-note { font-size: 14px; color: var(--text-tertiary); }
+
     .roll-toast {
       position: fixed;
       left: 50%;
@@ -971,10 +1006,13 @@
           點名
         </button>
         <button class="tab-btn" id="tab-reception" role="tab" aria-selected="false" onclick="switchTab('reception')">
-          受洗招待服事同工
+          招待同工
         </button>
         <button class="tab-btn" id="tab-communion" role="tab" aria-selected="false" onclick="switchTab('communion')">
-          聖餐服事同工
+          聖餐同工
+        </button>
+        <button class="tab-btn" id="tab-baptism" role="tab" aria-selected="false" onclick="switchTab('baptism')">
+          受洗名單
         </button>
       </div>
     </div>
@@ -1080,6 +1118,18 @@
       </div>
 
       <div class="roster-grid" id="communion-grid"></div>
+    </section>
+
+    <!-- ==================== PAGE 4: 受洗名單 ==================== -->
+    <section id="panel-baptism" class="tab-panel" role="tabpanel">
+      <div class="callout-card">
+        <div class="callout-icon">💧</div>
+        <div class="callout-text">
+          <strong>施洗順序 共 40 人（不含林口 4 位）</strong>
+          <span>司會：林漢威牧師</span>
+        </div>
+      </div>
+      <div id="baptism-list"></div>
     </section>
 
     <!-- ==================== PAGE 3: 點名 ==================== -->
@@ -2065,7 +2115,7 @@
     }
 
     function switchTab(tabName) {
-      ["reception", "communion", "rollcall"].forEach(name => {
+      ["reception", "communion", "rollcall", "baptism"].forEach(name => {
         const isActive = name === tabName;
         const tab = document.getElementById(`tab-${name}`);
         const panel = document.getElementById(`panel-${name}`);
@@ -2075,6 +2125,52 @@
       });
       try { localStorage.setItem("clc-baptism-tab", tabName); } catch (e) {}
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // =========================================================================
+    // 7. 受洗名單
+    // =========================================================================
+    const baptismGroups = [
+      { title: "1. 點水禮 4 位", pastor: "振華牧師", people: [
+        ["1", "張麗珠", "姊妹", "11/12 修改"], ["2", "吳烟村", "弟兄", "11/12 新增"],
+        ["3", "徐毓萱", "姊妹", ""], ["22", "徐向邑", "弟兄", "由 3-4 移至此"] ] },
+      { title: "2. 兒主牧區 13 位", pastor: "季瑜牧師", people: [
+        ["4", "洪宣", "姊妹"], ["5", "闞睿妍", "姊妹"], ["6", "林千甯", "姊妹"], ["7", "鄒忻圓", "姊妹"],
+        ["8", "陳宣穎", "姊妹"], ["9", "呂亮瑩", "姊妹"], ["10", "吳以柔", "姊妹"], ["11", "張恩綦", "弟兄"],
+        ["12", "陳錫恩", "弟兄"], ["13", "李陳天語", "弟兄"], ["14", "莊騏華", "弟兄"], ["15", "吳以樂", "弟兄"],
+        ["16", "潘辰洋", "弟兄"] ] },
+      { title: "3-1. 學青國中牧區 1 位", pastor: "彥蒲傳道", people: [["17", "楊千嬅", "姊妹"]] },
+      { title: "3-2. 學青高中牧區 2 位", pastor: "羅華牧師", people: [["18", "吳家誠", "弟兄"], ["19", "蘇家祥", "弟兄"]] },
+      { title: "3-3. 學青大專牧區 1 位", pastor: "冠綸長老", people: [["20", "侯冠銘", "弟兄"]] },
+      { title: "3-4. 小社青牧區 2 位", pastor: "湘文牧師", people: [["21", "黃隸", "弟兄"], ["23", "魏知儀", "姊妹"]] },
+      { title: "4-1. 社青牧區 1 位", pastor: "名君牧師", people: [["24", "林家帆", "姊妹"]] },
+      { title: "4-2. 社青牧區 1 位", pastor: "欣芳區牧", people: [["25", "鄭惠中", "姊妹"]] },
+      { title: "4-3. 社青牧區 1 位", pastor: "栗育仁牧師", people: [["26", "徐子晉", "弟兄"]] },
+      { title: "5-1. 家庭姊妹牧區 1 位", pastor: "Sophie 區長", people: [["27", "談玉鈴", "姊妹"]] },
+      { title: "5-2. 家庭姊妹牧區 5 位", pastor: "雁鴻區牧", people: [
+        ["28", "謝美芬", "姊妹"], ["29", "許安安", "姊妹"], ["30", "郭湘筠", "姊妹"], ["31", "陳宛伶", "姊妹"], ["32", "許榴容", "姊妹"] ] },
+      { title: "5-3. 家庭姊妹牧區 1 位", pastor: "玉燕區長", people: [["33", "黃嘉慧", "姊妹"]] },
+      { title: "5-4. 家庭姊妹牧區 1 位", pastor: "德蘭區長", people: [["34", "林玉芳", "姊妹"]] },
+      { title: "5-5. 家庭姊妹牧區 1 位", pastor: "尹遴區長", people: [["35", "武芸慧", "姊妹", "11/13 新增"]] },
+      { title: "6-1. 家庭弟兄牧區 2 位", pastor: "瑞賢傳道", people: [["36", "鍾昇達", "弟兄"], ["37", "辜健維", "弟兄"]] },
+      { title: "6-2. 家庭弟兄牧區 1 位", pastor: "智康區長", people: [["38", "陳綏揚", "弟兄"]] },
+      { title: "6-3. 家庭弟兄牧區 2 位", pastor: "永健牧師", people: [["39", "林尚儒", "弟兄"], ["40", "伍仁傑", "弟兄"]] }
+    ];
+
+    function renderBaptismList() {
+      document.getElementById("baptism-list").innerHTML = baptismGroups.map(g => `
+        <div class="bap-group">
+          <h3 class="bap-group-title">${g.title} <span>· 請${g.pastor}施洗</span></h3>
+          <div class="bap-rows">
+            ${g.people.map(([num, name, gender, note]) => `
+              <div class="bap-row" data-search="${num} ${name} ${gender} ${g.title} ${g.pastor}">
+                <span class="bap-num">${num}</span>
+                <span class="bap-name">${name}</span>
+                ${note ? `<span class="bap-note">${note}</span>` : ""}
+                <span class="pos-pill ${gender === "姊妹" ? "pink" : "blue"}">${gender}</span>
+              </div>`).join("")}
+          </div>
+        </div>`).join("");
     }
 
     // =========================================================================
@@ -2244,7 +2340,7 @@
 
     function handleSearch(query) {
       const q = query.trim().toLowerCase();
-      document.querySelectorAll(".worker-card, .roll-row").forEach(card => {
+      document.querySelectorAll(".worker-card, .roll-row, .bap-row").forEach(card => {
         const text = card.getAttribute("data-search").toLowerCase();
         card.style.display = text.includes(q) ? "flex" : "none";
       });
@@ -2360,6 +2456,7 @@
     renderAll();
     loadRollState();
     renderRollCall();
+    renderBaptismList();
   </script>
 </body>
 </html>
